@@ -12,20 +12,17 @@ connectDB();
 
 const app = express();
 
+
 //middlewares
 app.use(express.json());
 app.use(morgan('dev'));
 
-
-//routes
-
+// Routes
 app.use("/api/v1/auth", authRoutes);
 
-
-
-//rest API
-app.get('/',(req,res)=>{
-res.send('<h1>Welcome</h1>')
+// REST API
+app.get('/', (req, res) => {
+  res.send('<h1>Welcome</h1>');
 });
 
 
@@ -38,8 +35,39 @@ res.send('<h1>Welcome</h1>')
 
 
 
-const port = process.env.PORT;
 
-app.listen(port,()=>{
-    console.log(`server is running on ${port}`);
-})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Server Start
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`Server is running on ${port}`);
+});
+
+
+
+
+
+
+
+
+
+
+
+
