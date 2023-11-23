@@ -61,7 +61,7 @@ export const registerController = async (req, res) => {
 
 
 
-//login route
+//login route for login
 
 export const loginController = async (req, res) => {
     try {
