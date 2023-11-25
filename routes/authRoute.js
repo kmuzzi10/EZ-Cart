@@ -20,7 +20,7 @@ router.post('/login', loginController)
 
 
 
-//test
+//test route
 router.get('/test',requireSignin,isAdmin, testController)
 
 export default router;
