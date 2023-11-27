@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300&family=Ubuntu:wght@500&display=swap');
 
 
 
@@ -20,4 +20,57 @@
 
 .active{
     border-bottom: 2px solid black;
+}
+
+.navbar-brand{
+    font-weight: 700px;
+    font-family: 'roboto',sans-serif;
+    letter-spacing: 3px;
+}
+
+.footer{
+    font-family: 'Poppins', sans-serif;
+}
+
+.footer a{
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+}
+
+.footer a:hover{
+    color:#ffefba;
+    border-bottom: 1px solid #ffefba;
+}
+
+
+/* Page not found css */
+
+.pnf{
+    display: flex;
+    min-height: 65vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pnf-title{
+    font-weight: 700;
+    font-family: 'Ubuntu', sans-serif;
+}
+.pnf-heading{
+    font-family: 'Ubuntu', sans-serif;
+}
+.pnf-btn{
+    color: black;
+    border: 1px solid black;
+    text-decoration: none;
+    padding: 10px;
+    margin-top: 10px;
+    
+}
+
+.pnf-btn:hover{
+    color: white;
+    background-color: black;
 }

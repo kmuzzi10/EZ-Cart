@@ -1,13 +1,13 @@
 import React from 'react';
 import {NavLink,Link} from "react-router-dom"
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 
 const Header = () => {
   return (
     <>
        <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container-fluid">
-    <Link to='/' className="navbar-brand"><ShoppingBagIcon/> Muzammil's Market</Link>
+    <Link to='/' className="navbar-brand"> <ShoppingBagOutlinedIcon style={{fontSize:'35px',paddingBottom:'2px'}}/> Muzammil's Market</Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon" />
     </button>
