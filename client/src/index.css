@@ -2,6 +2,10 @@
 
 
 
+body{
+    background-color: #FAF6F0;
+}
+
 /* navbar */
 .navbar{
     font-family: 'Poppins', sans-serif;
@@ -30,6 +34,7 @@
 
 .footer{
     font-family: 'Poppins', sans-serif;
+    margin-top: 200px;
 }
 
 .footer a{
@@ -73,4 +78,21 @@
 .pnf-btn:hover{
     color: white;
     background-color: black;
+}
+
+
+/* Register */
+
+.register{
+    text-align: center;
+    margin-top: 100px;
+    width: 50%;
+    margin: auto;
+}
+
+.register h1{
+    font-size: 60px;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 100px;
+    margin-bottom: 20px;
 }
