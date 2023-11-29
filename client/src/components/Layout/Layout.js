@@ -2,6 +2,8 @@ import React from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { Helmet } from 'react-helmet'
+import { Toaster } from 'react-hot-toast';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Layout = (props) => {
     return (
@@ -15,6 +17,7 @@ const Layout = (props) => {
             </Helmet>
             <Header />
             <main style={{ minHeight: '80vh' }}>
+                <Toaster />
                 {props.children}
             </main>
             <Footer />
@@ -23,10 +26,10 @@ const Layout = (props) => {
 }
 
 Layout.defaultProps = {
-title:'E-commerce app - shopNow',
-description:'MERN Stack Project',
-keywords:'react node mongodb express',
-author:'Muzammil Ahmed Khan'
+    title: 'E-commerce app - shopNow',
+    description: 'MERN Stack Project',
+    keywords: 'react node mongodb express',
+    author: 'Muzammil Ahmed Khan'
 }
 
 export default Layout
