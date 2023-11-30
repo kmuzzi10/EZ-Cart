@@ -1,18 +1,36 @@
 import React, { useState } from 'react'
 import Layout from '../Layout'
-
+import axios from "axios"
+import {useNavigate} from "react-router-dom"
 const Login = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState(""); 
+  const navigate = useNavigate();
 
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+        const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`, 
+        {email, password }
+        );
+        if(res.data.success){
+            alert(res.data && res.data.message);
+            navigate('/')
+        }else{
+            alert(res.data.message)
+        }
+    } catch (err) {
+        console.log(err);
+        alert("Somethig Went Wrong")
+    }
+}
 
 
   return (
     <Layout title='Login E-commerce'>
     <div className='login'>
     <h1>Login</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* Email input */}
         <div data-mdb-input-init className="form-floating mb-3">
           <input onChange={(event) => setEmail(event.target.value)} value={email} type="email" id="floatingInput" className="form-control" required />
