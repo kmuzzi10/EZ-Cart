@@ -8,6 +8,7 @@ import Register from "./components/Layout/Auth/Register";
 import Login from "./components/Layout/Auth/Login";
 import Dashboard from "./pages/user/Dashboard";
 import PrivateRoute from "./components/Layout/Routes/Private";
+import ForgotPassword from "./components/Layout/Auth/ForgotPassword";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/policy" element={<Policy />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<Pagenotfound />} />
 
       </Routes>

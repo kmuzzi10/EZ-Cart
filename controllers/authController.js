@@ -7,7 +7,7 @@ import JWT from "jsonwebtoken";
 export const registerController = async (req, res) => {
   try {
     console.log("Received request body:", req.body);
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone, address ,answer} = req.body;
     //validations
     if (!name) {
       return res.status(400).json({ message: "Name is Required" });
@@ -23,6 +23,9 @@ export const registerController = async (req, res) => {
     }
     if (!address) {
       return res.status(400).json({ message: "Address is Required" });
+    }
+    if (!answer) {
+      return res.status(400).json({ message: "Answer is Required" });
     }
 
     // Check if the user already exists
@@ -42,6 +45,7 @@ export const registerController = async (req, res) => {
       phone,
       address,
       password: hashedPassword,
+      answer
     }).save();
 
     res.status(201).json({
@@ -113,6 +117,61 @@ export const loginController = async (req, res) => {
     });
   }
 };
+
+//forgotPasswordController
+
+export const forgotPasswordController = async (req, res) => {
+  try {
+    const { email, answer, newPassword } = req.body;
+    if (!email) {
+      res.status(404).send({ message: 'email is reqired' })
+    }
+    if (!answer) {
+      res.status(404).send({ message: 'answer is reqired' })
+    }
+    if (!newPassword) {
+      res.status(404).send({ message: 'new password is reqired' })
+    }
+    //checking
+    const user = await userModel.findOne({ email, answer });
+    //validation
+    if (!user) {
+      res.status(404).send({
+        success: false,
+        message: 'wrong email or answer'
+      });
+    }
+    const hashed = await hashPassword(newPassword);
+    await userModel.findByIdAndUpdate(user._id, { password: hashed });
+    res.status(200).send({
+      success: true,
+      message: 'password has successfully changed'
+    })
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      success: false,
+      message: "something went wrong",
+      err
+    })
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
