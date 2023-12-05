@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../Layout'
 import axios from "axios"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useLocation,NavLink } from "react-router-dom"
 import { useAuth } from '../../../context/auth'
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -54,7 +54,7 @@ const Login = () => {
           <div className="row mb-3">
             <div className="col">
               {/* Simple link */}
-              <button className='btn-login' onClick={() => { navigate('/forgot-password') }}> Forgot password? </button>
+              <NavLink className='btn-login' onClick={() => { navigate('/forgot-password') }}> Forgot password? </NavLink>
             </div>
           </div>
           <button data-mdb-ripple-init type="submit" className="btn btn-primary btn-block">Login</button>

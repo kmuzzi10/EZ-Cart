@@ -26,10 +26,17 @@ router.post('/forgot-password', forgotPasswordController)
 //test route
 router.get('/test', requireSignin, isAdmin, testController)
 
-//protected route
+//protected route for user
 
 router.get("/user-auth", requireSignin, (req, res) => {
     res.status(200).send({ ok: true })
 })
+//protected route for admin
+
+router.get("/admin-auth", requireSignin, isAdmin, (req, res) => {
+    console.log("Admin authentication endpoint accessed.");
+    res.status(200).send({ ok: true });
+});
+
 
 export default router;
