@@ -14,7 +14,7 @@ const router = express.Router();
 
 //routing
 router.post("/register", registerController);
-
+///api/v1/auth/register
 //login
 
 router.post('/login', loginController)
