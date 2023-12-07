@@ -13,7 +13,7 @@ const PrivateRoute = () => {
         console.log("Effect triggered");
         const authCheck = async () => {
             try {
-                const res = await axios.get("http://localhost:8080/api/v1/auth/user-auth");
+                const res = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/user-auth`);
                 console.log("Authentication response:", res.data);
                 if (res.data.ok) {
                     setOk(true);
