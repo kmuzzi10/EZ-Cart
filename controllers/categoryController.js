@@ -1,6 +1,7 @@
 import categoryModel from "../models/categoryModel.js";
 import slugify from "slugify";
 
+//create category controller 
 export const createCategoryController = async (req, res) => {
     try {
         console.log("Inside crateCategoryController");
@@ -77,6 +78,8 @@ export const getCategoryController = async (req, res) => {
     }
 }
 
+
+//get single category controller
 export const singleCategoryController = async (req, res) => {
     try {
         console.log("Inside getSingleController");
@@ -104,7 +107,7 @@ export const singleCategoryController = async (req, res) => {
     }
 }
 
-
+//delete category controller
 export const deleteCategoryController = async (req, res) => {
     try {
         console.log("Inside deleteSingleController");
