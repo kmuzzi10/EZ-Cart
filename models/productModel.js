@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema({
         rquired: true
     },
     category: {
-        type: mongoose.ObjectID,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
         required: true
     },
@@ -37,4 +37,4 @@ const productSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 
-export default mongoose.model('product', productSchema)
+export default mongoose.model('Product', productSchema)
