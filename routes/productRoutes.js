@@ -1,7 +1,8 @@
 import express from "express";
 import { isAdmin, requireSignin } from "../middlewares/authMiddleware.js";
-import { createProductController, getProductController, getSingleProductController } from "../controllers/productController.js";
+import { createProductController, deleteProductController, getProductController, getSingleProductController, productPhotoController, updateProductController } from "../controllers/productController.js";
 import formidable from "express-formidable";
+
 
 
 const router = express.Router();
@@ -12,6 +13,13 @@ router.post('/create-product', (req, res, next) => {
     console.log("Reached the create-product route");
     next();
 }, requireSignin, isAdmin, formidable(), createProductController)
+
+//create products
+
+router.put('/update-product/:pid', (req, res, next) => {
+    console.log("Reached the update-product route");
+    next();
+}, requireSignin, isAdmin, formidable(), updateProductController)
 
 //get product
 
@@ -26,6 +34,20 @@ router.get('/get-product/:slug', (req, res, next) => {
     next();
 }, getSingleProductController)
 
+//get photo
+
+router.get('/product-photo/:pid', (req, res, next) => {
+    console.log("Reached the get-photo Product route");
+    next();
+}, productPhotoController)
+
+
+//delete product
+
+router.delete('/product/:pid', (req, res, next) => {
+    console.log("Reached the Delete Product route");
+    next();
+}, deleteProductController)
 
 
 export default router
