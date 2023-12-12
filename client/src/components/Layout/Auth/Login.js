@@ -54,7 +54,7 @@ const Login = () => {
           <div className="row mb-3">
             <div className="col">
               {/* Simple link */}
-              <NavLink className='btn-login' onClick={() => { navigate('/forgot-password') }}> Forgot password? </NavLink>
+              <NavLink className='btn-login' to={'/forgot-password'}> Forgot password? </NavLink>
             </div>
           </div>
           <button data-mdb-ripple-init type="submit" className="btn btn-primary btn-block">Login</button>
