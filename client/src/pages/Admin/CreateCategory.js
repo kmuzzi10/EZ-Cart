@@ -3,11 +3,13 @@ import Layout from '../../components/Layout/Layout'
 import AdminMenu from '../../components/Layout/AdminPages/AdminMenu'
 import axios from 'axios';
 import CategoryForm from '../../components/Forms/CategoryForm';
-
+import { Modal } from 'antd';
 const CreateCategory = () => {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
-
+  const [visible, setvisible] = useState(false)
+  const [selected, setSelected] = useState(null)
+  const [updatedName, setUpdatedName] = useState("")
   //handlesubmit function
 
   const handleSubmit = async (e) => {
@@ -43,6 +45,17 @@ const CreateCategory = () => {
   useEffect(() => {
     getAllCategory()
   }, [])
+
+  //updated form
+  const handleUpdate = async (e) => {
+    e.preventDefault()
+    try {
+     console.log(e)
+    } catch (error) {
+      console.log(error)
+      alert('Something went wrong in updating categories')
+    }
+  }
   return (
     <Layout title={'create category'}>
       <div className='fluid-container m-3 p-3'>
@@ -77,10 +90,10 @@ const CreateCategory = () => {
                         <tr>
                           <td key={c._id}>{c.name}</td>
                           <td>
-                          <button className='btn btn-success ms-2'>Edit</button>
-                          <button className='btn btn-danger ms-2'>Delete</button>
+                            <button className='btn btn-success ms-2' onClick={() => { setvisible(true) ; setUpdatedName(c.name) }}>Edit</button>
+                            <button className='btn btn-danger ms-2'>Delete</button>
                           </td>
-                          
+
                         </tr>
                       </>
                     )
@@ -91,6 +104,9 @@ const CreateCategory = () => {
                 </tbody>
               </table>
             </div>
+            <Modal onCancel={() => setvisible(false)} footer={null} visible={visible}>
+              <CategoryForm value={updatedName} setValue={setUpdatedName} handleSubmit={handleUpdate} />
+            </Modal>
           </div>
         </div>
       </div>
