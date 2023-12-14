@@ -50,12 +50,40 @@ const CreateCategory = () => {
   const handleUpdate = async (e) => {
     e.preventDefault()
     try {
-     console.log(e)
+      const { data } = await axios.put(`${process.env.REACT_APP_API}/api/v1/category/update-category/${selected._id}`, { name: updatedName })
+      if (data.success) {
+        alert(`${updatedName} is updated`)
+        setSelected(null)
+        setUpdatedName("")
+        setvisible(false)
+        getAllCategory()
+      } else {
+        alert(data.message)
+      }
     } catch (error) {
       console.log(error)
       alert('Something went wrong in updating categories')
     }
   }
+  //handel delete
+  const handleDelete = async (pId) => {
+    try {
+      const { data } = await axios.delete(`${process.env.REACT_APP_API}/api/v1/category/delete-category/${pId}`);
+      if (data.success) {
+        alert(`category is deleted`);
+        // Create a copy of the categories array and update state
+        const updatedCategories = categories.filter(category => category._id !== pId);
+        setCategories(updatedCategories);
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Something went wrong in deleting categories');
+    }
+  };
+
+
   return (
     <Layout title={'create category'}>
       <div className='fluid-container m-3 p-3'>
@@ -87,11 +115,15 @@ const CreateCategory = () => {
 
                     return (
                       <>
-                        <tr>
-                          <td key={c._id}>{c.name}</td>
+                        <tr key={c._id}>
+                          <td>{c.name}</td>
                           <td>
-                            <button className='btn btn-success ms-2' onClick={() => { setvisible(true) ; setUpdatedName(c.name) }}>Edit</button>
-                            <button className='btn btn-danger ms-2'>Delete</button>
+                            <button className='btn btn-success ms-2' onClick={() => {
+                              setvisible(true);
+                              setUpdatedName(c.name);
+                              setSelected(c);
+                            }}>Edit</button>
+                            <button className='btn btn-danger ms-2' onClick={() => { handleDelete(c._id) }}>Delete</button>
                           </td>
 
                         </tr>
