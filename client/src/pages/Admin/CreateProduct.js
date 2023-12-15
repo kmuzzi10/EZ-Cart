@@ -4,13 +4,14 @@ import axios from "axios"
 import AdminMenu from '../../components/Layout/AdminPages/AdminMenu'
 import { Select } from "antd"
 const { Option } = Select
-
+// import { useNavigate } from "react-router-dom"
 
 
 const CreateProduct = () => {
+    // const navigate = useNavigate()
     const [categories, setCategories] = useState([])
     const [name, setName] = useState("")
-    const [descrition, setDescrition] = useState("")
+    const [description, setDescription] = useState("")
     const [price, setPrice] = useState("")
     const [category, setCategory] = useState("")
     const [quantity, setQuantity] = useState("")
@@ -36,6 +37,30 @@ const CreateProduct = () => {
         getAllCategory()
     }, [])
 
+    const handleCreate = async (e) => {
+        e.preventDefault()
+        try {
+            const productData = new FormData()
+            productData.append("name", name)
+            productData.append("description", description)
+            productData.append("price", price)
+            productData.append("quantity", quantity)
+            productData.append("photo", photo)
+            productData.append("category", category)
+            const { data } = axios.post(`${process.env.REACT_APP_API}/api/v1/product/create-product`, productData)
+            if (data?.success) {
+                alert(data?.message)
+            } else {
+
+                alert("Product Created Successfully")
+                // navigate('/dashboard/admin/products')
+            }
+        } catch (error) {
+            console.log(error)
+            alert('Something Went Wrong')
+        }
+    }
+
     return (
         <Layout title={'Create product'}>
             <div className='fluid-container m-3 p-3'>
@@ -49,7 +74,7 @@ const CreateProduct = () => {
                             <Select bordered={false} placeholder="Select a category" size='large' showSearch className='form-control mb-3' onChange={(value) => { setCategory(value) }}>
                                 {
                                     categories?.map(c => (
-                                        <Option key={c._id} value={c.name}>
+                                        <Option key={c._id} value={c._id}>
                                             {c.name}
                                         </Option>
                                     ))
@@ -70,6 +95,34 @@ const CreateProduct = () => {
                                     </div>
                                 )}
                             </div>
+                            <div className='mb-3'>
+                                <input type='text' placeholder='Enter Name of Product' className='form-control' value={name} onChange={(e) => setName(e.target.value)} />
+                            </div>
+                            <div
+                                className='mb-3'>  <textarea type='text' placeholder='Enter Description of Product' className='form-control' value={description} onChange={(e) => setDescription(e.target.value)} />
+                            </div>
+                            <div
+                                className='mb-3'>  <input type='number' placeholder='Enter Price of Product' className='form-control' value={price} onChange={(e) => setPrice(e.target.value)} />
+                            </div>
+                            <div
+                                className='mb-3'> <input type='number' placeholder='Enter Quantity of Product' className='form-control' value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                            </div>
+                            <div
+                                className='mb-3'>
+                                <Select bordered={false} placeholder='Select Shipping' size='large' showSearch className='form-control' onChange={(value) => setShipping(value)} >
+                                    <Option value='0'>
+                                        No
+                                    </Option>
+                                    <Option value='1'>
+                                        Yes
+                                    </Option>
+                                </Select>
+                            </div>
+                            <div className='mb-3'>
+                                <button className='btn btn-primary' onClick={handleCreate}>Add Product</button>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
