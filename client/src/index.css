@@ -124,3 +124,7 @@ body{
 
 
 /* admin menu */
+.product-link{
+    text-decoration: none;
+    color: black;
+}
