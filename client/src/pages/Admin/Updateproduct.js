@@ -3,9 +3,11 @@ import Layout from '../../components/Layout/Layout'
 import axios from "axios"
 import AdminMenu from '../../components/Layout/AdminPages/AdminMenu'
 import { Select } from "antd"
+import { useNavigate, useParams } from 'react-router-dom'
 const { Option } = Select
 const Updateproduct = () => {
     // const navigate = useNavigate()
+    const params = useParams()
     const [categories, setCategories] = useState([])
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -14,8 +16,27 @@ const Updateproduct = () => {
     const [quantity, setQuantity] = useState("")
     const [shipping, setShipping] = useState("")
     const [photo, setPhoto] = useState("")
+    const [id, setId] = useState("")
 
 
+    //get singlr product
+
+    const getSingleProduct = async () => {
+        try {
+            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/get-product/${params.slug}`)
+            setName(data.product.name)
+            setId(data.product._id)
+            setDescription(data.product.description)
+            setPrice(data.product.price)
+            setQuantity(data.product.quantity)
+            setShipping(data.product.shipping)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    useEffect(() => {
+        getSingleProduct()
+    }, [])
     //get category
 
     const getAllCategory = async () => {
@@ -67,7 +88,7 @@ const Updateproduct = () => {
                     <div className='col-lg-9 col-md-8 col-sm-8'>
                         <h1>Update Product</h1>
                         <div className='m-1 w-75'>
-                            <Select bordered={false} placeholder="Select a category" size='large' showSearch className='form-control mb-3' onChange={(value) => { setCategory(value) }}>
+                            <Select bordered={false} placeholder="Select a category" size='large' showSearch className='form-control mb-3' onChange={(value) => { setCategory(value) }} value={category.name}>
                                 {
                                     categories?.map(c => (
                                         <Option key={c._id} value={c._id}>
@@ -105,7 +126,7 @@ const Updateproduct = () => {
                             </div>
                             <div
                                 className='mb-3'>
-                                <Select bordered={false} placeholder='Select Shipping' size='large' showSearch className='form-control' onChange={(value) => setShipping(value)} >
+                                <Select bordered={false} placeholder='Select Shipping' size='large' showSearch className='form-control' onChange={(value) => setShipping(value)} value={shipping ? "yes" : "no"} >
                                     <Option value='0'>
                                         No
                                     </Option>
@@ -115,7 +136,7 @@ const Updateproduct = () => {
                                 </Select>
                             </div>
                             <div className='mb-3'>
-                                <button className='btn btn-primary' onClick={handleCreate}>Add Product</button>
+                                <button className='btn btn-primary' onClick={handleCreate}>Update Product</button>
                             </div>
 
 
