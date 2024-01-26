@@ -44,7 +44,7 @@ router.get('/product-photo/:pid', (req, res, next) => {
 
 //delete product
 
-router.delete('/product/:pid', (req, res, next) => {
+router.delete('/delete-product/:pid', (req, res, next) => {
     console.log("Reached the Delete Product route");
     next();
 }, deleteProductController)

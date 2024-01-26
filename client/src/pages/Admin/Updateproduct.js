@@ -6,7 +6,7 @@ import { Select } from "antd"
 import { useNavigate, useParams } from 'react-router-dom'
 const { Option } = Select
 const Updateproduct = () => {
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const params = useParams()
     const [categories, setCategories] = useState([])
     const [name, setName] = useState("")
@@ -17,6 +17,7 @@ const Updateproduct = () => {
     const [shipping, setShipping] = useState("")
     const [photo, setPhoto] = useState("")
     const [id, setId] = useState("")
+
 
 
     //get singlr product
@@ -30,6 +31,7 @@ const Updateproduct = () => {
             setPrice(data.product.price)
             setQuantity(data.product.quantity)
             setShipping(data.product.shipping)
+            setCategory(data.product.category._id)
         } catch (err) {
             console.log(err)
         }
@@ -55,7 +57,8 @@ const Updateproduct = () => {
         getAllCategory()
     }, [])
 
-    const handleCreate = async (e) => {
+    //update product
+    const handleUpdate = async (e) => {
         e.preventDefault()
         try {
             const productData = new FormData()
@@ -63,19 +66,35 @@ const Updateproduct = () => {
             productData.append("description", description)
             productData.append("price", price)
             productData.append("quantity", quantity)
-            productData.append("photo", photo)
+            photo && productData.append("photo", photo)
             productData.append("category", category)
-            const { data } = axios.post(`${process.env.REACT_APP_API}/api/v1/product/create-product`, productData)
+            const { data } = axios.put(`${process.env.REACT_APP_API}/api/v1/product/update-product/${id}`, productData)
             if (data?.success) {
                 alert(data?.message)
             } else {
 
-                alert("Product Created Successfully")
-                // navigate('/dashboard/admin/products')
+                alert("Product Updated Successfully")
+                navigate('/dashboard/admin/products')
             }
         } catch (error) {
             console.log(error)
             alert('Something Went Wrong')
+        }
+    }
+
+    //delete product
+
+    const handleDelete = async (e) => {
+        e.preventDefault()
+        try {
+            let answer = window.prompt('Are you sure want to delete this product')
+            if(!answer) return ;
+         const {data} = axios.delete(`${process.env.REACT_APP_API}/api/v1/product/delete-product/${id}`)
+         alert("product deleted successfully")
+         navigate(`/dashboard/admin/products`)
+        } catch (err) {
+            console.log(err)
+            alert("Something Went Wrong")
         }
     }
     return (
@@ -88,7 +107,7 @@ const Updateproduct = () => {
                     <div className='col-lg-9 col-md-8 col-sm-8'>
                         <h1>Update Product</h1>
                         <div className='m-1 w-75'>
-                            <Select bordered={false} placeholder="Select a category" size='large' showSearch className='form-control mb-3' onChange={(value) => { setCategory(value) }} value={category.name}>
+                            <Select bordered={false} placeholder="Select a category" size='large' showSearch className='form-control mb-3' onChange={(value) => { setCategory(value) }} value={category}>
                                 {
                                     categories?.map(c => (
                                         <Option key={c._id} value={c._id}>
@@ -105,9 +124,14 @@ const Updateproduct = () => {
                                 </label>
                             </div>
                             <div className='mb-3'>
-                                {photo && (
+                                {photo ? (
                                     <div className='text-center'>
                                         <img src={URL.createObjectURL(photo)} alt="product-photo" height={'200px'} className='img img-responsive' />
+
+                                    </div>
+                                ) : (
+                                    <div className='text-center'>
+                                        <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${id}`} alt="product-photo" height={'200px'} className='img img-responsive' />
 
                                     </div>
                                 )}
@@ -136,7 +160,10 @@ const Updateproduct = () => {
                                 </Select>
                             </div>
                             <div className='mb-3'>
-                                <button className='btn btn-primary' onClick={handleCreate}>Update Product</button>
+                                <button className='btn btn-primary' onClick={handleUpdate}>Update Product</button>
+                            </div>
+                            <div className='mb-3'>
+                                <button className='btn btn-danger' onClick={handleDelete}>Delete Product</button>
                             </div>
 
 

@@ -38,10 +38,11 @@ const Products = () => {
                             {products?.map(p => (
                                 <Link to={`/dashboard/admin/product/${p.slug}`} key={p._id} className='product-link'>
                                     <div className="card m-3" style={{ width: '18rem' }}>
-                                        <img src={p.photo} className="card-img-top" alt={p.name} />
+                                        <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
                                         <div className="card-body">
                                             <h5 className="card-title">{p.name}</h5>
                                             <p className="card-text">{p.description}.</p>
+                                            
                                         </div>
                                     </div>
                                 </Link>
