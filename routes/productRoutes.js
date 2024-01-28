@@ -1,6 +1,6 @@
 import express from "express";
 import { isAdmin, requireSignin } from "../middlewares/authMiddleware.js";
-import { createProductController, deleteProductController, getProductController, getSingleProductController, productPhotoController, updateProductController } from "../controllers/productController.js";
+import { createProductController, deleteProductController, getProductController, getSingleProductController, productPhotoController, updateProductController , productFiltersController} from "../controllers/productController.js";
 import formidable from "express-formidable";
 
 
@@ -48,6 +48,15 @@ router.delete('/delete-product/:pid', (req, res, next) => {
     console.log("Reached the Delete Product route");
     next();
 }, deleteProductController)
+
+
+//filter product
+
+router.post('/product-filters', (req, res, next) => {
+    console.log("Reached the Delete Product route");
+    next();
+}, productFiltersController)
+
 
 
 export default router
