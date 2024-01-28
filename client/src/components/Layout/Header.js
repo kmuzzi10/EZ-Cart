@@ -3,6 +3,7 @@ import { NavLink, Link } from "react-router-dom"
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useAuth } from '../../context/auth';
+import SearchInput from '../Forms/SearchInput';
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -26,6 +27,7 @@ const Header = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <SearchInput />
               <li className="nav-item">
                 <NavLink to='/' className="nav-link" aria-current="page">Home</NavLink>
               </li>

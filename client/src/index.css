@@ -128,3 +128,11 @@ body{
     text-decoration: none;
     color: black;
 }
+
+
+.product-image {
+    width: 100%; /* Adjust the width as needed */
+    height: 200px; /* Adjust the height as needed */
+    object-fit: cover; /* This ensures that the image covers the entire space without stretching */
+  }
+  

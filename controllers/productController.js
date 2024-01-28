@@ -41,7 +41,7 @@ export const createProductController = async (req, res) => {
                 message: 'Quantity is required'
             })
         }
-        if (photo && photo.size > 205800) {
+        if (photo && photo.size > 20580000000000) {
             return res.status(500).send({
                 success: false,
                 message: 'Photo is required and it should be less than 200mb'
@@ -255,3 +255,74 @@ export const productFiltersController = async (req, res) => {
         })
     }
 }
+
+
+
+//product count controller
+
+export const productCountController = async (req, res) => {
+    try {
+        const total = await productModel.find({}).estimatedDocumentCount();
+        res.status(200).send({
+            success: true,
+            total,
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: 'Error in product count',
+            error
+        })
+    }
+}
+
+
+//product list controller based on page
+export const productListController = async (req, res) => {
+    try {
+        const perPage = 3;
+        const page = req.params.page ? req.params.page : 1;
+        const products = await productModel
+            .find({})
+            .select("-photo")
+            .skip((page - 1) * perPage)
+            .limit(perPage)
+            .sort({ createdAt: -1 });
+        res.status(200).send({
+            success: true,
+            products,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            success: false,
+            message: "error in per page ctrl",
+            error,
+        });
+    }
+};
+
+
+
+//search product controller
+
+export const searchProductController = async (req, res) => {
+    try {
+        const { keyword } = req.params;
+        const results = await productModel.find({
+            $or: [
+                { name: { $regex: keyword, $options: "i" } },
+                { description: { $regex: keyword, $options: "i" } }
+            ]
+        }).select('-photo');
+        res.json(results);
+    } catch (err) {
+        console.log(err);
+        res.status(404).send({
+            success: false,
+            message: 'error in search product controller',
+            err
+        });
+    }
+};
