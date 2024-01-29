@@ -16,9 +16,9 @@ const HomePage = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  //get All categories
+  // Get all categories
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/category/get-category`);
@@ -36,7 +36,7 @@ const HomePage = () => {
     getTotal();
   }, []);
 
-  //get products
+  // Get products
   const getAllProducts = async () => {
     try {
       setLoading(true);
@@ -50,7 +50,7 @@ const HomePage = () => {
     }
   };
 
-  //get total count
+  // Get total count
   const getTotal = async () => {
     try {
       const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-count`);
@@ -62,28 +62,23 @@ const HomePage = () => {
 
   useEffect(() => {
     if (page === 1) return;
-    loadMore()
-  }, [page])
+    loadMore();
+  }, [page]);
 
-
-
-  //load more
-
+  // Load more products
   const loadMore = async () => {
     try {
-      setLoading(true)
-      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`)
-      setLoading(false)
-      setProducts([...products, ...data?.products])
-
+      setLoading(true);
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`);
+      setLoading(false);
+      setProducts([...products, ...data?.products]);
     } catch (error) {
-      console.log(error)
-      setLoading(false)
+      console.log(error);
+      setLoading(false);
     }
-  }
+  };
 
-
-  //filter for category
+  // Filter for category
   const handleFilter = (value, id) => {
     let all = [...checked];
     if (value) {
@@ -102,7 +97,7 @@ const HomePage = () => {
     if (checked.length || radio.length) filterProduct();
   }, [checked, radio]);
 
-  //filter product function
+  // Filter product function
   const filterProduct = async () => {
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/product/product-filters`, { checked, radio });
@@ -125,7 +120,7 @@ const HomePage = () => {
                 </Checkbox>
               ))}
             </div>
-            {/*price filter*/}
+            {/* Price filter */}
             <h4 style={{ fontFamily: 'cursive' }}>Filters by Prices</h4>
             <div style={{ fontFamily: 'cursive' }} className='d-flex flex-column'>
               <Radio.Group onChange={e => setRadio(e.target.value)}>
@@ -145,7 +140,7 @@ const HomePage = () => {
             <div className='row justify-content-center'>
               {products?.map(p => (
                 <div key={p._id} className='col-lg-4 col-md-4 col-sm-6 mb-4'>
-                  <div className="card" style={{ height: '100%' }}>
+                  <div className="card">
                     <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`} className="card-img-top img-fluid" alt={p.name} />
                     <div style={{ fontFamily: 'cursive' }} className="card-body">
                       <h5 className="card-title">{p.name}</h5>
@@ -165,8 +160,8 @@ const HomePage = () => {
                 <button className='btn btn-warning'
                   onClick={
                     (e) => {
-                      e.preventDefault()
-                      setPage(page + 1)
+                      e.preventDefault();
+                      setPage(page + 1);
                     }
                   }
                 >

@@ -1,6 +1,6 @@
 import express from "express";
 import { isAdmin, requireSignin } from "../middlewares/authMiddleware.js";
-import { createProductController, deleteProductController,searchProductController, getProductController, getSingleProductController, productPhotoController, updateProductController, productFiltersController, productCountController , productListController } from "../controllers/productController.js";
+import { createProductController, deleteProductController, searchProductController, getProductController, getSingleProductController, productPhotoController, updateProductController, productFiltersController, productCountController, productListController, relatedProductController } from "../controllers/productController.js";
 import formidable from "express-formidable";
 
 
@@ -75,8 +75,16 @@ router.get('/product-list/:page', (req, res, next) => {
 
 //serach product
 
-router.get('/search/:keyword',searchProductController)
+router.get('/search/:keyword', (req, res, next) => {
+    console.log("Reached the search Product route");
+    next();
+}, searchProductController)
 
+//related product api
+router.get('/related-product/:pid/:cid', (req, res, next) => {
+    console.log("Reached the related Product route");
+    next();
+}, relatedProductController)
 
 
 export default router

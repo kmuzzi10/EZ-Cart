@@ -1,63 +1,98 @@
-import React, { useState, useEffect } from 'react';
-import Layout from '../components/Layout/Layout';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { FaSpinner } from 'react-icons/fa'; // Importing the spinner icon
+import React, { useState, useEffect } from "react";
+import Layout from "./../components/Layout/Layout";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const ProductDetails = () => {
     const params = useParams();
-    const [product, setProduct] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const [product, setProduct] = useState({});
+    const [relatedProducts, setRelatedProducts] = useState([]);
 
     useEffect(() => {
-        const getProduct = async () => {
-            try {
-                const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/get-product/${params.slug}`);
-                setProduct(data?.product);
-                setLoading(false);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
         if (params?.slug) getProduct();
     }, [params?.slug]);
 
-    if (loading) {
-        // Return loading indicator with spinner while product is being fetched
-        return (
-            <Layout>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col text-center mt-5'>
-                            <FaSpinner className="spinner" /> {/* Spinner icon */}
-                            <h2>Loading...</h2>
-                        </div>
-                    </div>
-                </div>
-            </Layout>
-        );
-    }
+    const getProduct = async () => {
+        try {
+            const { data } = await axios.get(
+                `${process.env.REACT_APP_API}/api/v1/product/get-product/${params.slug}`
+            );
+            if (data && data.product) {
+                setProduct(data.product);
+                if (data.product._id) {
+                    getSimilarProduct(data.product._id, data.product.category._id);
+                }
+            } else {
+                console.log("Product not found");
+            }
+        } catch (error) {
+            console.log("Error fetching product:", error);
+        }
+    };
+
+    const getSimilarProduct = async (pid, cid) => {
+        try {
+            const { data } = await axios.get(
+                `${process.env.REACT_APP_API}/api/v1/product/related-product/${pid}/${cid}`
+            );
+            setRelatedProducts(data?.products);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <Layout>
-            <div className='container'>
-                <div className='row'>
-                    <div className='col-lg-6 col-md-6 col-sm-6 mt-3'>
-                        <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`} className="card-img-top" alt={product.name} />
+            <div className="container mt-2">
+                <div className="row">
+                    <div className="col-md-6">
+                        <img
+                            src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`}
+                            className="card-img-top"
+                            alt={product.name}
+                        />
                     </div>
-                    <div className='col-lg-6 col-md-6 col-sm-6'>
-                        <h1 className='text-center'>Product Details</h1>
-                        <h4>Name : {product.name}</h4>
-                        <h4>Description : {product.description}</h4>
-                        <h4>Price : {product.price}$</h4>
-                        {product.category && <h4>Category : {product.category.name}</h4>}
+                    <div style={{ fontFamily: 'cursive' }} className="col-md-6">
+                        <h1  className="text-center">Product Details</h1>
+                        <h6>Name: {product.name}</h6>
+                        <h6>Description: {product.description}</h6>
+                        <h6>Price:$ {product.price}</h6>
+                        <h6>Category: {product?.category?.name}</h6>
                         <button className='btn btn-secondary'><ShoppingCartIcon /> Add to Cart</button>
                     </div>
                 </div>
-                <div className='row'>
-                    Similar products
+                <hr />
+                <div className="row">
+                    <div className="col">
+                        <h2 style={{ fontFamily: 'cursive' }} className="text-center">Similar Products</h2>
+                        <div  className="row row-cols-1 row-cols-md-3 g-4">
+                            {relatedProducts.length < 1 && (
+                                <p style={{ fontFamily: 'cursive' }} className="text-center">No Similar Products found</p>
+                            )}
+                            {relatedProducts.map((p) => (
+                                <div key={p._id} className="col">
+                                    <div className="card h-100">
+                                        <img
+                                            src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
+                                            className="card-img-top"
+                                            alt={p.name}
+                                        />
+                                        <div style={{ fontFamily: 'cursive' }} className="card-body d-flex flex-column justify-content-between">
+                                            <h5 className="card-title">{p.name}</h5>
+                                            <p className="card-text">{p.description.substring(0, 30)}...</p>
+                                            <p className="card-text">${p.price}</p>
+                                            <div className="d-flex justify-content-between">
+                                                <button className="btn btn-primary" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
+                                                <button className="btn btn-secondary"><ShoppingCartIcon /> Add to Cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </Layout>

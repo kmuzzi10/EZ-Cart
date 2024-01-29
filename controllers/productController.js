@@ -41,7 +41,7 @@ export const createProductController = async (req, res) => {
                 message: 'Quantity is required'
             })
         }
-        if (photo && photo.size > 20580000000000) {
+        if (photo && photo.size > 205800000000000000) {
             return res.status(500).send({
                 success: false,
                 message: 'Photo is required and it should be less than 200mb'
@@ -281,7 +281,7 @@ export const productCountController = async (req, res) => {
 //product list controller based on page
 export const productListController = async (req, res) => {
     try {
-        const perPage = 3;
+        const perPage = 9;
         const page = req.params.page ? req.params.page : 1;
         const products = await productModel
             .find({})
@@ -326,3 +326,27 @@ export const searchProductController = async (req, res) => {
         });
     }
 };
+
+
+
+//related product controller
+export const relatedProductController = async (req, res) => {
+    try {
+        const { pid, cid } = req.params;
+        const products = await productModel.find({
+            category: cid,
+            _id: { $ne: pid }
+        }).select("-photo").limit(5).populate("category");
+        res.status(200).send({
+            success: true,
+            products
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(400).send({
+            success: false,
+            message: 'error in related product api',
+            err
+        })
+    }
+}

@@ -4,9 +4,11 @@ import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useAuth } from '../../context/auth';
 import SearchInput from '../Forms/SearchInput';
+import useCategory from '../../hooks/useCategory';
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+  const categories = useCategory()
 
   const handleLogout = () => {
     setAuth({
@@ -21,7 +23,7 @@ const Header = () => {
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <Link to='/' className="navbar-brand"> <ShoppingBagOutlinedIcon style={{ fontSize: '35px', paddingBottom: '2px' }} /> Muzammil's Market</Link>
+          <Link to='/' className="navbar-brand"> <ShoppingBagOutlinedIcon style={{ fontSize: '35px', paddingBottom: '2px' }} /> ESHHPEESH Market</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>
@@ -31,8 +33,20 @@ const Header = () => {
               <li className="nav-item">
                 <NavLink to='/' className="nav-link" aria-current="page">Home</NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink to='/category' className="nav-link" aria-current="page">Category</NavLink>
+
+
+              <li className="nav-item dropdown">
+                <Link className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categories
+                </Link>
+
+                <ul className="dropdown-menu">
+                  <li><Link className="dropdown-item" to={`/categories`}>All Categories</Link></li>
+                  {categories?.map(c => (
+                    <li key={c.name}><Link className="dropdown-item" to={`/category/${c.slug}`}>{c.name}</Link></li>
+                  ))}
+                </ul>
+
               </li>
               {
                 !auth.user ? (
