@@ -6,6 +6,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Checkbox, Radio } from 'antd';
 import { Prices } from '../components/Prices';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/cart';
+import Snackbar from '@mui/material/Snackbar';
+
+
 
 const HomePage = () => {
   const [auth, setAuth] = useAuth();
@@ -15,8 +19,10 @@ const HomePage = () => {
   const [radio, setRadio] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);jk
   const navigate = useNavigate();
+  const [cart, setCart] = useCart()
+  const [open, setOpen] = useState(false);
 
   // Get all categories
   const getAllCategory = async () => {
@@ -106,6 +112,16 @@ const HomePage = () => {
     }
   };
 
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+
   return (
     <Layout title='All Products - Best Offers!'>
       <div className='container-fluid mt-3'>
@@ -147,7 +163,18 @@ const HomePage = () => {
                       <p className="card-text">$ {p.price}</p>
                       <div className="d-flex justify-content-between">
                         <button className='btn btn-primary' onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
-                        <button className='btn btn-secondary'><ShoppingCartIcon /> Add to Cart</button>
+                        <button className='btn btn-secondary'
+                          onClick={() => {
+                            setCart([...cart, p])
+                            setOpen(true)
+                          }}>
+                          <ShoppingCartIcon /> Add to Cart</button>
+                        <Snackbar
+                          open={open}
+                          autoHideDuration={1100}
+                          onClose={handleClose}
+                          message="Item added to the cart successfully"
+                        />
                       </div>
                     </div>
                   </div>

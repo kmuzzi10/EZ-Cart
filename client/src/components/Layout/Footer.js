@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import CopyrightSharpIcon from '@mui/icons-material/CopyrightSharp';
 
+
 const Footer = () => {
   return (
     <div className='bg-dark text-light p-3 footer'>
