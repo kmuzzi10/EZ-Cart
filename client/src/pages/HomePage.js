@@ -27,7 +27,6 @@ const HomePage = () => {
       }
     } catch (err) {
       console.log(err);
-      alert('Something went wrong in getting categories');
     }
   };
 
@@ -46,7 +45,7 @@ const HomePage = () => {
     } catch (err) {
       setLoading(false);
       console.log(err);
-      alert('Something went wrong getting products');
+      // alert('Something went wrong getting products');
     }
   };
 
