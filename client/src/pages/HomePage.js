@@ -166,6 +166,7 @@ const HomePage = () => {
                         <button className='btn btn-secondary'
                           onClick={() => {
                             setCart([...cart, p])
+                            localStorage.setItem('cart', JSON.stringify([...cart, p]))
                             setOpen(true)
                           }}>
                           <ShoppingCartIcon /> Add to Cart</button>

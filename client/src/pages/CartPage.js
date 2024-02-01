@@ -9,6 +9,38 @@ const CartPage = () => {
     const [cart, setCart] = useCart()
     const navigate = useNavigate()
 
+
+    //total price 
+
+    const totalPrice = () => {
+        try {
+            let total = 0;
+            cart?.map(item => {
+                total = total + item.price
+            })
+            return total.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD"
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    //function for delting product from cart
+
+    const removeCartItem = (pid) => {
+        try {
+            let myCart = [...cart];
+            let index = myCart.findIndex(item => item._id === pid)
+            myCart.splice(index, 1);
+            setCart(myCart)
+            localStorage.setItem('cart', JSON.stringify(myCart))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <Layout>
             <div className='container'>
@@ -18,13 +50,13 @@ const CartPage = () => {
                             {`Hello ${auth?.token && auth?.user.name}`}
                         </h1>
                         <h4 className='text-center mt-2'>
-                            {cart?.length > 0 ? `You have ${cart.length} item${cart.length > 1 ? 's' : ''} in your cart${auth?.token ? '' : ' - please login to checkout'}` : 'Your cart is empty'}
+                            {cart?.length ? `You have ${cart.length} item${cart.length > 1 ? 's' : ''} in your cart${auth?.token ? '' : ' - please login to checkout'}` : 'Your cart is empty'}
                         </h4>
 
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col-lg-9 col-md-9 col-sm-9'>
+                    <div className='col-lg-8 col-md-8 col-sm-9'>
                         {
                             cart?.map(p => (
                                 <div className='row mb-3 card flex-row'>
@@ -32,17 +64,21 @@ const CartPage = () => {
                                         <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`} className="card-img-top img-fluid" alt={p.name} width={'100px'} height={'100px'} />
                                     </div>
                                     <div className='col-md-8 mt-3'>
-                                        <h6>Product Name :{p.name}</h6>
-                                        <h6>Product Description :{p.description}</h6>
+                                        <h6>{p.name}</h6>
+                                        <h6>{p.description}</h6>
                                         <h6>Price :${p.price}</h6>
+                                        <button className='btn btn-danger' onClick={() => removeCartItem(p._id)}>Remove</button>
                                     </div>
 
                                 </div>
                             ))
                         }
                     </div>
-                    <div className='col-lg-3 col-md-3 col-sm-3'>
-                        checkout
+                    <div className='col-lg-4 col-md-4 col-sm-3 text-center'>
+                        <h2>Cart Summary</h2>
+                        <p>Total | Checkout | Payment</p>
+                        <hr />
+                        <h4>Total :{totalPrice()} </h4>
                     </div>
                 </div>
             </div>
