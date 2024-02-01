@@ -19,7 +19,7 @@ const HomePage = () => {
   const [radio, setRadio] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);jk
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [cart, setCart] = useCart()
   const [open, setOpen] = useState(false);

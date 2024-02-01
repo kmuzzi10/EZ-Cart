@@ -30,6 +30,7 @@ app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes)
 
 // REST API
+//rest api for test
 app.get('/', (req, res) => {
   res.send('<h1>Welcome</h1>');
 });
