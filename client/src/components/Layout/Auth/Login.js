@@ -55,9 +55,12 @@ const Login = () => {
             <div className="col">
               {/* Simple link */}
               <NavLink className='btn-login' to={'/forgot-password'}> Forgot password? </NavLink>
+              <br />
+              <NavLink className='btn-login' to={'/register'}> Not have an account? </NavLink>
             </div>
           </div>
           <button data-mdb-ripple-init type="submit" className="btn btn-primary btn-block">Login</button>
+          
         </form>
       </div>
     </Layout>

@@ -5,6 +5,9 @@ import formidable from "express-formidable";
 
 
 
+
+
+
 const router = express.Router();
 
 //create products
@@ -93,6 +96,9 @@ router.get('/product-category/:slug', (req, res, next) => {
     console.log("Reached the product category route");
     next();
 }, productCatgoryController)
+
+
+
 
 
 export default router

@@ -6,13 +6,23 @@ import userModel from "../models/userModel.js";
 //protected routes token based
 export const requireSignin = async (req, res, next) => {
     try {
-        const decode = JWT.verify(req.headers.authorization, process.env.JWT_SECRET);
+        const decode = JWT.verify(
+            req.headers.authorization,
+            process.env.JWT_SECRET
+        );
         req.user = decode;
         next();
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        console.log(error);
+        res.status(401).send({
+            success: false,
+            message: 'Unauthorized Access'
+        });
     }
 };
+
+
+
 
 //admin
 export const isAdmin = async (req, res, next) => {

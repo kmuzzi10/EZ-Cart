@@ -9,8 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/cart';
 import Snackbar from '@mui/material/Snackbar';
 
-
-
 const HomePage = () => {
   const [auth, setAuth] = useAuth();
   const [products, setProducts] = useState([]);
@@ -21,10 +19,14 @@ const HomePage = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [cart, setCart] = useCart()
+  const [cart, setCart] = useCart();
   const [open, setOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false); // State to track login status
 
-  // Get all categories
+  useEffect(() => {
+    setLoggedIn(!!auth.token); // Set loggedIn to true if auth token exists
+  }, [auth.token]);
+
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/category/get-category`);
@@ -41,7 +43,24 @@ const HomePage = () => {
     getTotal();
   }, []);
 
-  // Get products
+  const addToCart = async (productId) => {
+    try {
+      if (!loggedIn) { // Check if user is logged in
+        alert('Please login to add items to your cart'); // Display alert if not logged in
+        navigate('/login')
+        return;
+      }
+      await axios.post(`${process.env.REACT_APP_API}/api/v1/cart/add-to-cart`, {
+        userId: auth.user._id,
+        productId: productId,
+        quantity: 1
+      });
+      setOpen(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const getAllProducts = async () => {
     try {
       setLoading(true);
@@ -51,11 +70,9 @@ const HomePage = () => {
     } catch (err) {
       setLoading(false);
       console.log(err);
-      // alert('Something went wrong getting products');
     }
   };
 
-  // Get total count
   const getTotal = async () => {
     try {
       const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-count`);
@@ -70,7 +87,6 @@ const HomePage = () => {
     loadMore();
   }, [page]);
 
-  // Load more products
   const loadMore = async () => {
     try {
       setLoading(true);
@@ -83,7 +99,6 @@ const HomePage = () => {
     }
   };
 
-  // Filter for category
   const handleFilter = (value, id) => {
     let all = [...checked];
     if (value) {
@@ -102,7 +117,6 @@ const HomePage = () => {
     if (checked.length || radio.length) filterProduct();
   }, [checked, radio]);
 
-  // Filter product function
   const filterProduct = async () => {
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/product/product-filters`, { checked, radio });
@@ -112,15 +126,12 @@ const HomePage = () => {
     }
   };
 
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
-
 
   return (
     <Layout title='All Products - Best Offers!'>
@@ -135,7 +146,6 @@ const HomePage = () => {
                 </Checkbox>
               ))}
             </div>
-            {/* Price filter */}
             <h4 style={{ fontFamily: 'cursive' }}>Filters by Prices</h4>
             <div style={{ fontFamily: 'cursive' }} className='d-flex flex-column'>
               <Radio.Group onChange={e => setRadio(e.target.value)}>
@@ -163,12 +173,7 @@ const HomePage = () => {
                       <p className="card-text">$ {p.price}</p>
                       <div className="d-flex justify-content-between">
                         <button className='btn btn-primary' onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
-                        <button className='btn btn-secondary'
-                          onClick={() => {
-                            setCart([...cart, p])
-                            localStorage.setItem('cart', JSON.stringify([...cart, p]))
-                            setOpen(true)
-                          }}>
+                        <button className='btn btn-secondary' onClick={() => addToCart(p._id)}>
                           <ShoppingCartIcon /> Add to Cart</button>
                         <Snackbar
                           open={open}
