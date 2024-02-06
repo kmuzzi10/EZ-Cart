@@ -165,7 +165,7 @@ const HomePage = () => {
             <div className='row justify-content-center'>
               {products?.map(p => (
                 <div key={p._id} className='col-lg-4 col-md-4 col-sm-6 mb-4'>
-                  <div className="card">
+                  <div className="card homepage-card">
                     <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`} className="card-img-top img-fluid" alt={p.name} />
                     <div style={{ fontFamily: 'cursive' }} className="card-body">
                       <h5 className="card-title">{p.name}</h5>
