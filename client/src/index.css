@@ -187,115 +187,417 @@ body{
 }
 
 
-/* register page */
 
+/* logout button css */
+.Btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: .3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background-color: rgb(0, 0, 0);
+  }
+  
+  /* plus sign */
+  .sign {
+    width: 100%;
+    transition-duration: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sign svg {
+    width: 17px;
+  }
+  
+  .sign svg path {
+    fill: white;
+  }
+  /* text */
+  .text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: .3s;
+  }
+  /* hover effect on button width */
+  .Btn:hover {
+    width: 125px;
+    border-radius: 40px;
+    transition-duration: .3s;
+  }
+  
+  .Btn:hover .sign {
+    width: 30%;
+    transition-duration: .3s;
+    padding-left: 20px;
+  }
+  /* hover effect button's text */
+  .Btn:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: .3s;
+    padding-right: 10px;
+  }
+  /* button click effect*/
+  .Btn:active {
+    transform: translate(2px ,2px);
+  }
+
+
+
+
+  /* HomePage.css */
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5; /* Light gray background */
+    color: #333; /* Dark text color */
+  }
+  
+  .container-fluid {
+    padding: 20px;
+  }
+  
+  /* Filters section */
+  .filters {
+    background-color: #fff; /* White background */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .filters h4 {
+    font-family: 'cursive';
+    margin-bottom: 15px;
+  }
+  
+  /* Products section */
+  .products .homepage-card {
+    background-color: #fff; /* White background for cards */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for cards */
+    margin-bottom: 20px;
+    transition: transform 0.3s ease; /* Smooth transition on hover */
+  }
+  
+  .products .homepage-card:hover {
+    transform: translateY(-5px); /* Move card up slightly on hover */
+  }
+  
+  .products .card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .products .card-body {
+    padding: 20px;
+  }
+  
+  .products .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .products .card-text {
+    color: #666; /* Lighter text color */
+  }
+  
+  .products .btn {
+    margin-top: 10px;
+  }
+  
+  /* Load more button */
+  .load-more {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .filters,
+    .products .homepage-card {
+      margin-bottom: 10px;
+    }
+  }
+  
+
+  /* Register.css */
+
+/* Container styles */
+.register-top{
+    margin-top: 30px;
+}
 .register-container {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-}
-
-.form-floating {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .register-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Form styles */
+  .register-form .form-floating input {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .register-form .form-floating label {
+    transition: all 0.3s ease;
+  }
+  
+  /* Animation for form inputs on focus */
+  .register-form .form-floating input:focus {
+    border-color: #007bff; /* Change border color on focus */
+  }
+  
+  /* Animation for floating label */
+  .register-form .form-floating input:focus + .form-label,
+  .register-form .form-floating input:valid + .form-label,
+  .register-form .form-floating input:not(:placeholder-shown) + .form-label {
+    transform: translateY(-20px); /* Move label up on focus or when input is not empty */
+    font-size: 12px; /* Adjust label font size */
+    color: #007bff; /* Change label color */
+  }
+  
+  /* Animation for submit button */
+  .register-form .btn {
+    background-color: #007bff; /* Button background color */
+    border-color: #007bff; /* Button border color */
+    padding: 10px 15px;
+    width: 100%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .register-form .btn:hover {
+    background-color: #0056b3; /* Darker color on hover */
+    border-color: #0056b3; /* Darker color on hover */
+  }
+  
+  /* Additional styles */
+  .register-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .register-form .form-floating {
     position: relative;
-    margin-bottom: 1rem;
+  }
+  
+  .register-form .form-floating .form-label {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  
+  .register-form .btn-block {
+    margin-top: 20px;
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .register-container {
+      width: 80%;
+    }
+  }
+
+
+  /* Login.css */
+
+/* Container styles */
+.login-box{
+    margin-top: 30px;
 }
-
-.form-floating input {
-    height: calc(2.75rem + 2px);
-}
-
-.form-floating label {
-    font-size: 0.875rem;
-    transform-origin: top left;
-    left: 13px;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
-
-/* login page */
 .login-container {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-}
-
-.form-floating {
-    position: relative;
-    margin-bottom: 1rem;
-}
-
-.form-floating input {
-    height: calc(2.75rem + 2px);
-}
-
-.form-floating label {
-    font-size: 0.875rem;
-    transform-origin: top left;
-    left: 13px;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
-.btn-login {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Form styles */
+  .login-form .form-floating input {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .login-form .form-floating label {
+    transition: all 0.3s ease;
+  }
+  
+  /* Additional styles */
+  .btn-login {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
     color: #007bff;
+    text-decoration: none;
+  }
+  
+  .btn-login:hover {
     text-decoration: underline;
-    cursor: pointer;
+  }
+  
+
+  /* ForgotPassword.css */
+
+/* Container styles */
+.forget-box{
+    margin-top: 30px;
 }
-
-.btn-login:hover {
-    color: #0056b3;
-    text-decoration: underline;
-}
-
-
-/* forgot pass */
-
 .forgot-password-container {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-}
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .forgot-password-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Form styles */
+  .forgot-password-form .form-floating input {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .forgot-password-form .form-floating label {
+    transition: all 0.3s ease;
+  }
+  
+  /* Additional styles */
+  .btn-login {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .btn-login:hover {
+    text-decoration: underline;
+  }
+  
+  /* CartPage.css */
 
-.form-floating {
-    position: relative;
-    margin-bottom: 1rem;
-}
+/* Container styles */
+.cart-container {
+    margin-top: 30px;
+  }
+  
+  /* Card styles */
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card img {
+    border-radius: 5px;
+  }
+  
+  /* Quantity control styles */
+  .quantity-control {
+    display: flex;
+    align-items: center;
+  }
+  
+  .quantity-control button {
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+  
+  .quantity {
+    font-size: 16px;
+    margin: 0 10px;
+  }
+  
+  /* Total price styles */
+  .cart-summary h4 {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  /* Update address button styles */
+  .update-address-btn {
+    margin-top: 20px;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .cart-container {
+      margin-top: 20px;
+    }
+  
+    .card {
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .card {
+      padding: 8px;
+    }
+  
+    .quantity-control button {
+      font-size: 14px;
+    }
+  
+    .quantity {
+      font-size: 14px;
+    }
+  }
 
-.form-floating input {
-    height: calc(2.75rem + 2px);
-}
-
-.form-floating label {
-    font-size: 0.875rem;
-    transform-origin: top left;
-    left: 13px;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
+  
+  
 

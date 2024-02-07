@@ -5,6 +5,7 @@ import { useAuth } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
 const CartPage = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
@@ -17,7 +18,7 @@ const CartPage = () => {
       await axios.delete(`${process.env.REACT_APP_API}/api/v1/cart/remove-from-cart/${productId}`);
       const updatedCart = cart.filter(item => item._id !== productId);
       setCart(updatedCart);
-      window.location.reload()
+      window.location.reload(); // This will cause the entire page to reload, consider other options for updating the cart
     } catch (error) {
       console.error(error);
     } finally {
@@ -78,11 +79,11 @@ const CartPage = () => {
 
   return (
     <Layout>
-      <div className='container'>
+      <div className='container cart-container'>
         <div className='row'>
           <div className='col-lg-12 col-md-12 col-sm-12'>
             {!auth.token && (
-              <h1 className='text-center bg-light p-2 mt-4'>Hello <br /> Please login to have a shopping</h1>
+              <h1 className='text-center bg-light p-2 mt-4'>Hello <br /> Please login to start shopping</h1>
             )}
             {auth.token && (
               <>

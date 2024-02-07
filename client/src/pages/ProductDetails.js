@@ -69,18 +69,18 @@ const ProductDetails = () => {
         <Layout>
             <div className="container mt-2">
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-6 mb-3 mb-md-0">
                         <img
                             src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`}
                             className="card-img-top"
                             alt={product.name}
                         />
                     </div>
-                    <div style={{ fontFamily: 'cursive' }} className="col-md-6">
-                        <h1  className="text-center">Product Details</h1>
+                    <div className="col-md-6">
+                        <h1 className="text-center mb-4">Product Details</h1>
                         <h6>Name: {product.name}</h6>
                         <h6>Description: {product.description}</h6>
-                        <h6>Price:$ {product.price}</h6>
+                        <h6>Price: $ {product.price}</h6>
                         <h6>Category: {product?.category?.name}</h6>
                         <button className='btn btn-secondary' onClick={() => addToCart(product._id)}>
                             <ShoppingCartIcon /> Add to Cart
@@ -90,10 +90,10 @@ const ProductDetails = () => {
                 <hr />
                 <div className="row">
                     <div className="col">
-                        <h2 style={{ fontFamily: 'cursive' }} className="text-center">Similar Products</h2>
-                        <div  className="row row-cols-1 row-cols-md-3 g-4">
+                        <h2 className="text-center mb-4">Similar Products</h2>
+                        <div className="row row-cols-1 row-cols-md-3 g-4">
                             {relatedProducts.length < 1 && (
-                                <p style={{ fontFamily: 'cursive' }} className="text-center">No Similar Products found</p>
+                                <p className="text-center">No Similar Products found</p>
                             )}
                             {relatedProducts.map((p) => (
                                 <div key={p._id} className="col">
@@ -103,10 +103,10 @@ const ProductDetails = () => {
                                             className="card-img-top"
                                             alt={p.name}
                                         />
-                                        <div style={{ fontFamily: 'cursive' }} className="card-body d-flex flex-column justify-content-between">
+                                        <div className="card-body d-flex flex-column justify-content-between">
                                             <h5 className="card-title">{p.name}</h5>
                                             <p className="card-text">{p.description.substring(0, 30)}...</p>
-                                            <p className="card-text">${p.price}</p>
+                                            <p className="card-text">$ {p.price}</p>
                                             <div className="d-flex justify-content-between">
                                                 <button className="btn btn-primary" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
                                                 <button className="btn btn-secondary" onClick={() => addToCart(p._id)}><ShoppingCartIcon /> Add to Cart</button>
@@ -121,7 +121,7 @@ const ProductDetails = () => {
             </div>
             <Snackbar
                 open={openSnackbar}
-                autoHideDuration={3000} // Adjust duration as needed
+                autoHideDuration={3000}
                 onClose={() => setOpenSnackbar(false)}
                 message="Item added to the cart successfully"
             />
