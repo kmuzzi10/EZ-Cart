@@ -22,6 +22,7 @@ const Header = () => {
     localStorage.removeItem("auth");
     alert("Logout Successfully");
   };
+  //jsx
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary sticky-top"> {/* Added sticky-top class here */}
