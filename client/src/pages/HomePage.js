@@ -8,6 +8,19 @@ import { Prices } from '../components/Prices';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/cart';
 import Snackbar from '@mui/material/Snackbar';
+import Card from "../components/Cards.js"
+import Shirts from "../images/37775.jpg"
+import Jeans from "../images/5822.jpg"
+import Hoodie from "../images/5173.jpg"
+import Glasses from "../images/view-heart-shapes-sunglasses.jpg"
+import Bracelets from "../images/pair-gold-bangles-with-diamonds-side.jpg"
+import Cosmetics from "../images/2151053864.jpg"
+import Jewellery from "../images/shiny-gold-jewelry-symbol-wealth-generated-by-ai.jpg"
+import Shoes from "../images/3726.jpg"
+import GIF from "../images/Free E-commerce Animated GIF Icon Pack 3 - Google Slides - PPT & Google Slides Download.gif"
+import clip from "../images/clipart1519494.png"
+
+
 
 const HomePage = () => {
   const [auth, setAuth] = useAuth();
@@ -135,6 +148,74 @@ const HomePage = () => {
 
   return (
     <Layout title='All Products - Best Offers!'>
+
+      <div className='container-fluid mt-3 home-top'>
+        <div className='row'>
+          <div className='col-lg-6 col-md-6 col-sm-12'>
+            <h1>Welcome to Muzammil's Market</h1>
+            <h6>Welcome to Muzammil's Market, your one-stop destination for all your shopping needs! Explore our diverse range of products carefully curated to cater to your lifestyle, from the latest gadgets to trendy fashion pieces and everything in between. Whether you're searching for high-quality electronics, stylish apparel, home essentials, or unique gifts, we've got you covered.
+
+              At Muzammil's Market, we pride ourselves on providing a seamless and enjoyable shopping experience. With user-friendly navigation and secure payment options, you can shop with confidence, knowing that your satisfaction is our top priority. Plus, our responsive customer support team is always here to assist you every step of the way.
+
+              Discover the convenience of online shopping with Muzammil's Market. Browse our extensive collection, take advantage of exclusive deals and promotions, and enjoy fast and reliable delivery straight to your doorstep. Join our growing community of satisfied customers and experience the joy of finding exactly what you need, all in one place.
+
+              Start exploring now and let Muzammil's Market enhance your shopping journey today!</h6>
+          </div>
+          <div className='col-lg-6 col-md-6 col-sm-12'>
+            <img src={clip}></img>
+          </div>
+
+        </div>
+
+      </div>
+      <div className='container GIF'>
+        <div className='row'>
+          <div className='col-lg-12 col-md-12 col-sm-12'>
+            <img src={GIF}></img>
+          </div>
+        </div>
+      </div>
+      <div className='container-fluid home-next'>
+        <div className='row after-home'>
+          <h1>Products We Offer</h1>
+          <div className='col-lg-3 col-md-6 col-sm-12'>
+            <Card header="Shirts" source={Shirts} title=" Stylish Shirts for Every Occasion" para=" Elevate your wardrobe with our collection of trendy and versatile shirts. From classic button-downs to casual tees, we offer a range of styles and colors to suit any taste. Explore our selection and find the perfect shirt to express your unique style." />
+          </div>
+          <div className='col-lg-3 col-md-6 col-sm-12'>
+            <Card header="Denim Essentials" source={Jeans} title="Jeans for All" para="Discover the ultimate staple piece for any wardrobe with our premium denim collection. Whether you prefer skinny, straight-leg, or relaxed fit, our jeans are crafted for comfort and style. Browse through our assortment of washes and cuts to find your ideal pair of jeans today." />
+          </div>
+          <div className='col-lg-3 col-md-6 col-sm-12'>
+            <Card header="Cozy Comfort" source={Hoodie} title="Hoodies for All Seasons" para="Stay warm and stylish with our collection of cozy hoodies. Perfect for lounging at home or layering up for outdoor adventures, our hoodies combine comfort and fashion effortlessly. Explore our range of colors and designs to find your new favorite go-to hoodie." />
+          </div>
+          <div className='col-lg-3 col-md-6 col-sm-12'>
+            <Card header=" Frame Your Style" source={Glasses} title="Trendy Glasses" para="Add a touch of sophistication to your look with our fashionable eyewear collection. Whether you're in need of prescription glasses or just want to accessorize with sunglasses, we have a variety of frames to suit every face shape and style preference. Explore our selection and find the perfect pair to elevate your look." />
+          </div>
+        </div>
+        <div className='row mt-2'>
+          <div className='col-lg-3 col-md-6 col-sm-12'>
+            <Card header="Arm Candy" source={Bracelets} title="Stylish Bracelets" para="Make a statement with our chic and trendy bracelets. From dainty chains to bold cuffs, our collection features a variety of designs to complement any outfit. Whether you're looking for something subtle for everyday wear or a statement piece for a special occasion, our bracelets are sure to add the perfect finishing touch to your ensemble." />
+          </div>
+          <div className='col-lg-3 col-md-6 col-sm-12'>
+            <Card header=" Enhance Your Beauty" source={Cosmetics} title="Cosmetics Essentials" para=" Discover a world of beauty with our premium cosmetics collection. From luxurious skincare products to glamorous makeup essentials, we offer everything you need to pamper yourself and enhance your natural beauty. Explore our range of high-quality cosmetics and unleash your inner glow." />
+          </div>
+          <div className='col-lg-3 col-md-6 col-sm-12'>
+            <Card header=" Sparkle and Shine" source={Jewellery} title="Exquisite Jewelry" para="Elevate your look with our stunning jewelry collection. From elegant necklaces to statement earrings, our pieces are designed to add a touch of glamour to any outfit. Crafted with precision and attention to detail, our jewelry is perfect for special occasions or everyday wear. Explore our collection and find the perfect piece to express your unique style." />
+          </div>
+          <div className='col-lg-3 col-md-6 col-sm-12'>
+            <Card header="Step into Style" source={Shoes} title="Fashionable Footwear" para="Complete your look with our stylish footwear collection. From casual sneakers to sophisticated heels, our shoes are crafted for comfort and designed to make a statement. Whether you're dressing up for a night out or keeping it casual for a day on the town, our diverse selection of shoes has something for every occasion. Explore our range and step into style today
+" />
+          </div>
+        </div>
+      </div>
+
+      <div className='container'>
+        <div className='row'>
+          <div className='col-lg-12 col-md-12 col-sm-12 gift-box'>
+            <h1 style={{ color: 'white',fontSize:'150px',textAlign:'center' }}>More Products?<br />Scroll Down <br />⤵</h1>
+          </div>
+        </div>
+      </div>
+
       <div className='container-fluid mt-3'>
         <div className='row'>
           <div className='col-lg-2 col-md-2 col-sm-2'>
@@ -175,18 +256,18 @@ const HomePage = () => {
                         <button className='btn btn-primary' onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
                         <button className='btn btn-secondary' onClick={() => addToCart(p._id)}>
                           <ShoppingCartIcon /> Add to Cart</button>
-                        <Snackbar
-                          open={open}
-                          autoHideDuration={1100}
-                          onClose={handleClose}
-                          message="Item added to the cart successfully"
-                        />
                       </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
+            <Snackbar
+              open={open}
+              autoHideDuration={1100}
+              onClose={handleClose}
+              message="Item added to the cart successfully"
+            />
             <div className='m-2 p-3'>
               {products && products.length < total && (
                 <button className='btn btn-warning'
