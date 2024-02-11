@@ -201,7 +201,7 @@ export const updateProductController = async (req, res) => {
                 message: 'Quantity is required'
             })
         }
-        if (photo && photo.size > 205800) {
+        if (photo && photo.size > 2058000000000000) {
             return res.status(500).send({
                 success: false,
                 message: 'Photo is required and it should be less than 200mb'
