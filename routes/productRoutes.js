@@ -1,9 +1,7 @@
 import express from "express";
 import { isAdmin, requireSignin } from "../middlewares/authMiddleware.js";
-import { createProductController, deleteProductController, searchProductController, getProductController, getSingleProductController, productPhotoController, updateProductController, productFiltersController, productCountController, productListController, relatedProductController, productCatgoryController } from "../controllers/productController.js";
+import { createProductController, deleteProductController, searchProductController, getProductController, getSingleProductController, productPhotoController, updateProductController, productFiltersController, productCountController, productListController, relatedProductController, productCatgoryController, braintreeTokenController, braintreePaymentController } from "../controllers/productController.js";
 import formidable from "express-formidable";
-
-
 
 
 
@@ -96,6 +94,14 @@ router.get('/product-category/:slug', (req, res, next) => {
     console.log("Reached the product category route");
     next();
 }, productCatgoryController)
+
+//payment gateway token
+
+router.get('/braintree/token', braintreeTokenController)
+
+//payment
+
+router.post('/braintree/payment', requireSignin, braintreePaymentController)
 
 
 
