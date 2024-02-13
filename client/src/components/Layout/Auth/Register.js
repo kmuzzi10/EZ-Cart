@@ -3,6 +3,7 @@ import Layout from '../Layout';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import GIF from "../../../images/Free Finance Animated GIF Icon Pack 1 - Google Slides - PPT & Google Slides Download.gif"
+import Alert from '@mui/material/Alert';
 
 const Register = () => {
     const [name, setName] = useState("");

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Layout from '../components/Layout/Layout';
 import { useAuth } from '../context/auth';
 import axios from 'axios';
@@ -17,8 +17,13 @@ import Bracelets from "../images/pair-gold-bangles-with-diamonds-side.jpg"
 import Cosmetics from "../images/2151053864.jpg"
 import Jewellery from "../images/shiny-gold-jewelry-symbol-wealth-generated-by-ai.jpg"
 import Shoes from "../images/3726.jpg"
-import GIF from "../images/Free E-commerce Animated GIF Icon Pack 3 - Google Slides - PPT & Google Slides Download.gif"
 import clip from "../images/clipart1519494.png"
+import slide1 from "../images/slideone.jpg"
+import slide2 from "../images/slidetwo.jpg"
+import slide3 from "../images/slidethree.jpg"
+import slide4 from "../images/slidefour.jpg"
+import slide5 from "../images/slidefive.jpg"
+
 
 
 
@@ -35,6 +40,10 @@ const HomePage = () => {
   const [cart, setCart] = useCart();
   const [open, setOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false); // State to track login status
+
+
+  //for slider
+
 
   useEffect(() => {
     setLoggedIn(!!auth.token); // Set loggedIn to true if auth token exists
@@ -145,7 +154,17 @@ const HomePage = () => {
     }
     setOpen(false);
   };
-
+  const LazyImage = ({ src, alt }) => {
+    const [imageSrc, setImageSrc] = useState(null);
+    useEffect(() => {
+      const img = new Image();
+      img.onload = () => {
+        setImageSrc(src);
+      };
+      img.src = src;
+    }, [src]);
+    return <img src={imageSrc} alt={alt} />;
+  };
   return (
     <Layout title='All Products - Best Offers!'>
 
@@ -162,16 +181,52 @@ const HomePage = () => {
               Start exploring now and let Muzammil's Market enhance your shopping journey today!</h6>
           </div>
           <div className='col-lg-6 col-md-6 col-sm-12'>
-            <img src={clip}></img>
+            <Suspense fallback={<div>Loading...</div>}>
+              <LazyImage src={clip} alt="Clip" />
+            </Suspense>
           </div>
 
         </div>
 
       </div>
-      <div className='container GIF'>
+      <div className='container-fluid bg-dark GIF'>
         <div className='row'>
-          <div className='col-lg-12 col-md-12 col-sm-12'>
-            <img src={GIF}></img>
+          <div className='col-lg-12 col-md-12 col-sm-12 text-center'>
+            <div  id="carouselExampleIndicators" className="carousel slide ">
+              <div className="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={0} className="active" aria-current="true" aria-label="Slide 1" />
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={1} aria-label="Slide 2" />
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={2} aria-label="Slide 3" />
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={3} aria-label="Slide 4" />
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={4} aria-label="Slide 5" />
+              </div>
+              <div className="carousel-inner">
+                <div className="carousel-item active">
+                  <img src={slide1} className="d-block w-100" alt="..." />
+                </div>
+                <div className="carousel-item">
+                <img src={slide2} className="d-block w-100" alt="..." />
+                </div>
+                <div className="carousel-item">
+                <img src={slide3} className="d-block w-100" alt="..." />
+                </div>
+                <div className="carousel-item">
+                <img src={slide4} className="d-block w-100" alt="..." />
+                </div>
+                <div className="carousel-item">
+                <img src={slide5} className="d-block w-100" alt="..." />
+                </div>
+              </div>
+              <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span className="carousel-control-prev-icon" aria-hidden="true" />
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span className="carousel-control-next-icon" aria-hidden="true" />
+                <span className="visually-hidden">Next</span>
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -211,7 +266,7 @@ const HomePage = () => {
       <div className='container'>
         <div className='row'>
           <div className='col-lg-12 col-md-12 col-sm-12 gift-box'>
-            <h1 style={{ color: 'white',fontSize:'150px',textAlign:'center' }}>More Products?<br />Scroll Down <br />⤵</h1>
+            <h1 style={{ color: 'white', fontSize: '150px', textAlign: 'center' }}>More Products?<br />Scroll Down <br />⤵</h1>
           </div>
         </div>
       </div>

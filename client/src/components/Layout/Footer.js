@@ -20,6 +20,14 @@ const Footer = () => {
   return (
     <div>
       <footer className="bg-dark text-center text-white pt-5 mt-5">
+
+        <div className="container d-flex justify-content-around">
+          <NavLink className='nav-link' to={`/about`} >About</NavLink>
+          <NavLink className='nav-link' to={`/contact`} >Contact</NavLink>
+          <NavLink className='nav-link' to={`/policy`} >Privacy Policy</NavLink>
+        </div>
+
+
         {/* Grid container */}
         <div className="container p-4">
           {/* Section: Social media */}
@@ -48,7 +56,7 @@ const Footer = () => {
 
               Join our friendly community of happy shoppers!
 
-              Convenient shopping delivered straight to your door
+              Convenient shopping delivered straightclassName='nav-link' to your door
 
               Shop local, support your community, and feel good doing it!
 

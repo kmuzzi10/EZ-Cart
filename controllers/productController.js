@@ -1,6 +1,7 @@
 import productModel from "../models/productModel.js"
 import categoryModel from "../models/categoryModel.js"
-import orderModel from "../models/orderModel.js"
+import Order from "../models/orderModel.js"
+import Cart from "../models/cartModel.js"
 import fs from "fs"
 import slugify from "slugify"
 import braintree from "braintree"
@@ -414,36 +415,86 @@ export const braintreeTokenController = async (req, res) => {
 
 //payment 
 
+
 export const braintreePaymentController = async (req, res) => {
     try {
-        const { cart, nonce } = req.body
-        let total = 0
-        cart.map((i) => {
-            total += i.productId.price
-        })
-        let newTransaction = gateway.transaction.sale({
-            amount: total,
-            paymentMethodNonce: nonce,
-            options: {
-                submitForSettlement: true
+        const { cart, nonce, paymentMethod } = req.body;
+        let total = 0;
+
+        // Calculate total amount
+        for (const item of cart) {
+            let product = null;
+            if (typeof item.productId === 'string') {
+                product = await productModel.findById(item.productId);
+            } else {
+                product = item.productId;
             }
+            if (product) {
+                total += product.price * item.quantity;
+            } else {
+                console.error('Invalid product:', item.productId);
+            }
+        }
 
-        },
-            function (error, result) {
-                if (result) {
-                    const order = new orderModel({
-                        products: cart,
-                        payment: result,
-                        buyer: req.user._id,
-
-                    }).save()
-                    res.json({ ok: true })
-                } else {
-                    res.status(500).send(error)
+        if (paymentMethod === 'braintree') {
+            // Make payment transaction with Braintree
+            gateway.transaction.sale({
+                amount: total,
+                paymentMethodNonce: nonce,
+                options: {
+                    submitForSettlement: true
                 }
+            },
+            async function (error, result) {
+                if (result) {
+                    // Create order if payment is successful
+                    try {
+                        const order = new Order({
+                            products: cart.map(item => item.productId), // Assuming cart contains product objects
+                            payment: result,
+                            buyer: req.user._id,
+                            status: "Processing" // Set initial status
+                        });
+
+                        await order.save();
+
+                        // Remove items from cart after successful order creation
+                        await Cart.deleteMany({ userId: req.user._id });
+
+                        res.json({ ok: true, order });
+                    } catch (err) {
+                        res.status(500).send(err);
+                    }
+                } else {
+                    res.status(500).send(error);
+                }
+            });
+        } else if (paymentMethod === 'cod') {
+            // Create order for cash on delivery
+            const order = new Order({
+                products: cart.map(item => item.productId),
+                payment: { method: 'Cash On Delivery' },
+                buyer: req.user._id,
+                status: "Processing"
+            });
+
+            try {
+                await order.save();
+                // Remove items from cart after successful order creation
+                await Cart.deleteMany({ userId: req.user._id });
+
+                res.json({ ok: true, order });
+            } catch (err) {
+                res.status(500).send(err);
             }
-        )
+        } else {
+            res.status(400).send('Invalid payment method');
+        }
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        res.status(500).send(error); // Handle other errors
     }
-}
+};
+
+
+

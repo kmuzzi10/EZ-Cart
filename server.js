@@ -7,6 +7,8 @@ import cors from "cors";
 import categoryRoutes from "./routes/categoryRoutes.js"
 import productRoutes from "./routes/productRoutes.js"
 import cartRoutes from "./routes/cartRoutes.js";
+import bodyParser from "body-parser";
+
 
 
 dotenv.config();
@@ -16,12 +18,12 @@ dotenv.config();
 connectDB();
 
 const app = express();
-
+app.use(bodyParser.json({ limit: '10mb' }));
 
 //middlewares
 app.use(cors({
-  origin: 'http://localhost:3000',  // replace with your frontend origin
-  credentials: true,  // allow credentials (cookies, authorization headers, etc.)
+  origin: 'http://localhost:3000',  // replace with frontend origin
+  credentials: true,  // allow credentials (cookies, authorization headers )
 }));
 app.use(express.json());
 app.use(morgan('dev'));
