@@ -672,5 +672,105 @@ body {
   margin-top: 60px;
 }
   
+/* contact page */
 
+.contact-top{
+  padding-top: 200px;
+  padding-bottom: 200px;
+  background-image: url(./images/contact.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.contact-top h1{
+  padding-left: 40px;
+  font-family: "Protest Strike", sans-serif;
+}
+.contact-top h6{
+  padding-left: 40px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.contact-form{
+  background-image: url(./images/contactForm.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 200px;
+  padding-bottom: 200px;
+}
+
+.contact-form-class{
+ margin-left: 450px;
+}
+.contact-form-class h1{
+  font-family: "Protest Strike", sans-serif;
+}
   
+.social-contact{
+  background-image: url(./images/social.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-bottom: 400px;
+  padding-top: 200px;
+}
+
+.social-h1{
+font-size: 5rem;
+font-family: "Protest Strike", sans-serif;
+}
+
+.social-thougths{
+  color: white;
+}
+.social-thougths h1{
+  font-family: "Protest Strike", sans-serif;
+   
+}
+
+@media (max-width: 991px) {
+  .contact-top {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  
+  .contact-form {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .social-contact {
+    padding-bottom: 100px;
+    padding-top: 50px;
+  }
+
+  .contact-form-class {
+    margin-left: 0; /* Reset margin */
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 767px) {
+  .contact-top {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  
+  .contact-form {
+    padding-top: 20px;
+    padding-bottom: 30px;
+  }
+
+
+  .social-contact {
+    padding-bottom: 60px;
+    padding-top: 30px;
+  }
+
+  .contact-form-class {
+    margin-left: 0; /* Reset margin */
+  }
+
+  .social-h1 {
+    font-size: 3rem; /* Reduce font size for mobile */
+  }
+}

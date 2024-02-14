@@ -189,10 +189,10 @@ const HomePage = () => {
         </div>
 
       </div>
-      <div className='container-fluid bg-dark GIF'>
+      <div className='container bg-dark GIF'>
         <div className='row'>
-          <div className='col-lg-12 col-md-12 col-sm-12 text-center'>
-            <div  id="carouselExampleIndicators" className="carousel slide ">
+          <div className='col-lg-8 col-md-10 col-sm-12 mx-auto text-center'>
+            <div id="carouselExampleIndicators" className="carousel slide">
               <div className="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={0} className="active" aria-current="true" aria-label="Slide 1" />
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={1} aria-label="Slide 2" />
@@ -205,16 +205,16 @@ const HomePage = () => {
                   <img src={slide1} className="d-block w-100" alt="..." />
                 </div>
                 <div className="carousel-item">
-                <img src={slide2} className="d-block w-100" alt="..." />
+                  <img src={slide2} className="d-block w-100" alt="..." />
                 </div>
                 <div className="carousel-item">
-                <img src={slide3} className="d-block w-100" alt="..." />
+                  <img src={slide3} className="d-block w-100" alt="..." />
                 </div>
                 <div className="carousel-item">
-                <img src={slide4} className="d-block w-100" alt="..." />
+                  <img src={slide4} className="d-block w-100" alt="..." />
                 </div>
                 <div className="carousel-item">
-                <img src={slide5} className="d-block w-100" alt="..." />
+                  <img src={slide5} className="d-block w-100" alt="..." />
                 </div>
               </div>
               <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -226,10 +226,10 @@ const HomePage = () => {
                 <span className="visually-hidden">Next</span>
               </button>
             </div>
-
           </div>
         </div>
       </div>
+
       <div className='container-fluid home-next'>
         <div className='row after-home'>
           <h1>Products We Offer</h1>
