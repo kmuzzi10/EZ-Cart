@@ -57,7 +57,7 @@ const Orders = () => {
                                                     <td>{moment(o.createdAt).fromNow()}</td>
                                                     <td>
                                                         {/* Mapping through products to display their names */}
-                                                        {o.products.map((product, index) => (
+                                                        {o?.products.map((product, index) => (
                                                             <div key={index}>{product.name}</div>
                                                         ))}
                                                     </td>
