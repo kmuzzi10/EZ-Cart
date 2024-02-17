@@ -263,7 +263,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className='container'>
+      <div className='fluid-container'>
         <div className='row'>
           <div className='col-lg-12 col-md-12 col-sm-12 gift-box'>
             <h1 style={{ color: 'white', fontSize: '150px', textAlign: 'center' }}>More Products?<br />Scroll Down <br />⤵</h1>

@@ -35,7 +35,7 @@ const Orders = () => {
                         {
                             orders.map((o, i) => {
                                 const paymentStatus = o.payment.method === "Cash On Delivery" ? "Cash on Delivery" : o.payment.success ? "Success" : "Failed";
-                                
+
                                 return (
                                     <div key={o._id} className='border shadow' style={{ marginBottom: '20px' }}>
                                         <table className='table'>

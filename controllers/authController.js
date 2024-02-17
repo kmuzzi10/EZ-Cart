@@ -211,6 +211,27 @@ export const getOrderController = async (req, res) => {
   }
 }
 
+//get all orders controller
+
+export const getAllOrderController = async (req, res) => {
+  try {
+    const orders = await orderModel.find({ buyer: req.user._id })
+      .populate("products", "-photo")
+      .populate("buyer", "name")
+      .populate("status")
+      .sort({ createdAt:  -1 });
+    res.json(orders);
+  } catch (err) {
+    console.error("Error in getting orders:", err);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong in getting orders",
+      error: err.message // Instead of full error object, sending only the error message
+    });
+  }
+};
+
+
 
 
 
