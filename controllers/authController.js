@@ -126,41 +126,61 @@ export const forgotPasswordController = async (req, res) => {
   try {
     const { email, answer, newPassword } = req.body;
     if (!email) {
-      res.status(404).send({ message: 'email is reqired' })
+      return res.status(400).send({ message: 'Email is required' });
     }
     if (!answer) {
-      res.status(404).send({ message: 'answer is reqired' })
+      return res.status(400).send({ message: 'Answer is required' });
     }
     if (!newPassword) {
-      res.status(404).send({ message: 'new password is reqired' })
+      return res.status(400).send({ message: 'New password is required' });
     }
-    //checking
+
+    // Check if user exists with the provided email and answer
     const user = await userModel.findOne({ email, answer });
-    //validation
     if (!user) {
-      res.status(404).send({
+      return res.status(404).send({
         success: false,
-        message: 'wrong email or answer'
+        message: 'Wrong email or answer'
       });
     }
+
+    // Hash the new password
     const hashed = await hashPassword(newPassword);
+
+    // Update user's password
     await userModel.findByIdAndUpdate(user._id, { password: hashed });
+
+    // Send success response
     res.status(200).send({
       success: true,
-      message: 'password has successfully changed'
-    })
-
+      message: 'Password has been successfully changed'
+    });
   } catch (err) {
     console.log(err);
     res.status(500).send({
       success: false,
-      message: "something went wrong",
+      message: "Something went wrong",
       err
-    })
-
+    });
   }
 }
 
+//get user controller
+
+export const getUserController = async (req, res) => {
+  try {
+    const users = await userModel.find({})
+    res.status(200)
+    res.json(users)
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      success: false,
+      message: "Something went wrong",
+      err
+    });
+  }
+}
 
 //update profile controller
 
@@ -215,11 +235,14 @@ export const getOrderController = async (req, res) => {
 
 export const getAllOrderController = async (req, res) => {
   try {
-    const orders = await orderModel.find({ buyer: req.user._id })
+    const orders = await orderModel.find({})
       .populate("products", "-photo")
-      .populate("buyer", "name")
+      .populate({
+        path: "buyer",
+        select: "name address" // Include both name and address fields
+      })
       .populate("status")
-      .sort({ createdAt:  -1 });
+      .sort({ createdAt: -1 });
     res.json(orders);
   } catch (err) {
     console.error("Error in getting orders:", err);
@@ -230,6 +253,27 @@ export const getAllOrderController = async (req, res) => {
     });
   }
 };
+
+
+
+//update order controller
+
+export const updateOrderController = async (req, res) => {
+  try {
+    const { orderId } = req.params
+    const { status } = req.body
+    const orders = await orderModel.findByIdAndUpdate(orderId, { status }, { new: true })
+    res.status(200)
+    res.json(orders)
+  } catch (err) {
+    console.error("Error in getting orders:", err);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong in getting orders",
+      error: err.message // Instead of full error object, sending only the error message
+    });
+  }
+}
 
 
 

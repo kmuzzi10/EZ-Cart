@@ -445,37 +445,39 @@ export const braintreePaymentController = async (req, res) => {
                     submitForSettlement: true
                 }
             },
-            async function (error, result) {
-                if (result) {
-                    // Create order if payment is successful
-                    try {
-                        const order = new Order({
-                            products: cart.map(item => item.productId), // Assuming cart contains product objects
-                            payment: result,
-                            buyer: req.user._id,
-                            status: "Processing" // Set initial status
-                        });
+                async function (error, result) {
+                    if (result) {
+                        // Create order if payment is successful
+                        try {
+                            const order = new Order({
+                                products: cart.map(item => item.productId), // Assuming cart contains product objects
+                                payment: result,
+                                buyer: req.user._id,
+                                status: "Not Process", // Set initial status
+                                totalPrice: total
+                            });
 
-                        await order.save();
+                            await order.save();
 
-                        // Remove items from cart after successful order creation
-                        await Cart.deleteMany({ userId: req.user._id });
+                            // Remove items from cart after successful order creation
+                            await Cart.deleteMany({ userId: req.user._id });
 
-                        res.json({ ok: true, order });
-                    } catch (err) {
-                        res.status(500).send(err);
+                            res.json({ ok: true, order });
+                        } catch (err) {
+                            res.status(500).send(err);
+                        }
+                    } else {
+                        res.status(500).send(error);
                     }
-                } else {
-                    res.status(500).send(error);
-                }
-            });
+                });
         } else if (paymentMethod === 'cod') {
             // Create order for cash on delivery
             const order = new Order({
                 products: cart.map(item => item.productId),
                 payment: { method: 'Cash On Delivery' },
                 buyer: req.user._id,
-                status: "Processing"
+                status: "Not Process",
+                totalPrice: total
             });
 
             try {

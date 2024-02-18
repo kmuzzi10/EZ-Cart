@@ -42,6 +42,7 @@ const Orders = () => {
                                             <thead>
                                                 <tr>
                                                     <th scope='col'>#</th>
+                                                    <th scope='col'>OrderID</th>
                                                     <th scope='col'>Status</th>
                                                     <th scope='col'>Buyer</th>
                                                     <th scope='col'>Order Date</th>
@@ -52,6 +53,7 @@ const Orders = () => {
                                             <tbody>
                                                 <tr key={i}>
                                                     <td>{i + 1}</td>
+                                                    <td>{o.orderId}</td>
                                                     <td>{o?.status}</td>
                                                     <td>{o?.buyer.name}</td>
                                                     <td>{moment(o.createdAt).fromNow()}</td>
