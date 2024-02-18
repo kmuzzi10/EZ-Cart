@@ -15,8 +15,35 @@ const Register = () => {
     const navigate = useNavigate();
 
     // Function for submitting form
+    // Function for submitting form
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        // Email validation regular expression
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Password validation: at least 8 characters including numbers
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+        // Phone number validation: at least 12 numbers
+        const phoneRegex = /^\d{11,}$/;
+
+        // Validation checks
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        if (!passwordRegex.test(password)) {
+            alert("Password must be at least 8 characters long and contain at least one number.");
+            return;
+        }
+
+        if (!phoneRegex.test(phone)) {
+            alert("Phone number must be at least 12 digits long.");
+            return;
+        }
+
         try {
             const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/register`, {
                 name,
@@ -74,7 +101,7 @@ const Register = () => {
                                     {/* Address input */}
                                     <div className="form-floating mb-3">
                                         <input onChange={(event) => setAddress(event.target.value)} value={address} type='text' id="floatingAddress" className="form-control" required />
-                                        <label className="form-label" htmlFor="floatingAddress">Address</label>
+                                        <label className="form-label" htmlFor="floatingAddress">Address || City / Area / Houseno</label>
                                     </div>
                                     {/* Answer input */}
                                     <div className="form-floating mb-3">

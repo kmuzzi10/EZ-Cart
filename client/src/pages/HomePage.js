@@ -154,17 +154,8 @@ const HomePage = () => {
     }
     setOpen(false);
   };
-  const LazyImage = ({ src, alt }) => {
-    const [imageSrc, setImageSrc] = useState(null);
-    useEffect(() => {
-      const img = new Image();
-      img.onload = () => {
-        setImageSrc(src);
-      };
-      img.src = src;
-    }, [src]);
-    return <img src={imageSrc} alt={alt} />;
-  };
+
+  
   return (
     <Layout title='All Products - Best Offers!'>
 
@@ -182,14 +173,14 @@ const HomePage = () => {
           </div>
           <div className='col-lg-6 col-md-6 col-sm-12'>
             <Suspense fallback={<div>Loading...</div>}>
-              <LazyImage src={clip} alt="Clip" />
+              <img src={clip} alt="Clip" />
             </Suspense>
           </div>
 
         </div>
 
       </div>
-      <div className='container bg-dark GIF'>
+      <div className='container-fluid bg-dark GIF'>
         <div className='row'>
           <div className='col-lg-8 col-md-10 col-sm-12 mx-auto text-center'>
             <div id="carouselExampleIndicators" className="carousel slide">
@@ -202,10 +193,10 @@ const HomePage = () => {
               </div>
               <div className="carousel-inner">
                 <div className="carousel-item active">
-                  <img src={slide1} className="d-block w-100" alt="..." />
+                  <img src={slide2} className="d-block w-100" alt="..." />
                 </div>
                 <div className="carousel-item">
-                  <img src={slide2} className="d-block w-100" alt="..." />
+                  <img src={slide1} className="d-block w-100" alt="..." />
                 </div>
                 <div className="carousel-item">
                   <img src={slide3} className="d-block w-100" alt="..." />
