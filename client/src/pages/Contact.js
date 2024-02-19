@@ -1,8 +1,36 @@
-import React from 'react'
-import Layout from '../components/Layout/Layout'
-import { NavLink } from 'react-router-dom'
+import React, { useState } from 'react';
+import Layout from '../components/Layout/Layout';
+import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 const Contact = () => {
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        comments: ''
+    });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post('http://localhost:8080/api/v1/auth/submit-email', formData);
+            alert('Form submitted successfully! we will contact you soon');
+            setFormData({
+                name: '',
+                email: '',
+                comments: ''
+            });
+        } catch (error) {
+            console.error(error);
+            alert('Error submitting the form');
+        }
+    };
+
     return (
         <Layout title='Contact E-commerce'>
             <>
@@ -19,19 +47,19 @@ const Contact = () => {
                     <div className='row'>
 
                         <div className='col-lg-6 col-md-6 col-sm-12 contact-form-class'>
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <h1>Contact Us</h1>
                                 <div className="mb-3">
                                     <label htmlFor="name" className="form-label">Your Name</label>
-                                    <input type="text" className="form-control" id="name" name="name" required />
+                                    <input type="text" className="form-control" id="name" name="name" value={formData.name} onChange={handleChange} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="email" className="form-label">Your Email</label>
-                                    <input type="email" className="form-control" id="email" name="email" required />
+                                    <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleChange} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="comments" className="form-label">Comments</label>
-                                    <textarea className="form-control" id="comments" name="comments" rows={4} required defaultValue={""} />
+                                    <textarea className="form-control" id="comments" name="comments" rows={4} value={formData.comments} onChange={handleChange} required />
                                 </div>
                                 <button type="submit" className="btn btn-light">Submit</button>
                             </form>
@@ -44,19 +72,19 @@ const Contact = () => {
                     <div className='row'>
                         <div className='col-lg-6 col-md-6 col-sm-6'></div>
                         <div className='col-lg-6 col-md-6 col-sm-12 social-thougths'>
-                             <h1 className='social-h1'>Or Contact Us Through</h1>
-                             <div className='mt-3'>
-                               <h1><i class="fa-brands fa-whatsapp"></i> +923437225876</h1>
-                               <h1><i class="fa-brands fa-facebook"></i><NavLink style={{color:'white'}} target='_blank' to='https://www.facebook.com/muzammilk223?mibextid=ZbWKwL'> Facebook</NavLink></h1>
-                               <h1><i class="fa-brands fa-linkedin"></i><NavLink style={{color:'white'}} target='_blank' to='https://www.linkedin.com/in/muzammil-khan-018a92206/'> LinkedIn</NavLink></h1>
-                               <h1><i class="fa-brands fa-github"></i><NavLink style={{color:'white'}} target='_blank' to='https://github.com/kmuzzi10'> GitHub</NavLink></h1>
-                             </div>
+                            <h1 className='social-h1'>Or Contact Us Through</h1>
+                            <div className='mt-3'>
+                                <h1><i class="fa-brands fa-whatsapp"></i> +923437225876</h1>
+                                <h1><i class="fa-brands fa-facebook"></i><NavLink style={{ color: 'white' }} target='_blank' to='https://www.facebook.com/muzammilk223?mibextid=ZbWKwL'> Facebook</NavLink></h1>
+                                <h1><i class="fa-brands fa-linkedin"></i><NavLink style={{ color: 'white' }} target='_blank' to='https://www.linkedin.com/in/muzammil-khan-018a92206/'> LinkedIn</NavLink></h1>
+                                <h1><i class="fa-brands fa-github"></i><NavLink style={{ color: 'white' }} target='_blank' to='https://github.com/kmuzzi10'> GitHub</NavLink></h1>
+                            </div>
                         </div>
                     </div>
                 </div>
             </>
         </Layout>
-    )
-}
+    );
+};
 
-export default Contact
+export default Contact;

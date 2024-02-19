@@ -8,10 +8,13 @@ import {
     getOrderController,
     getAllOrderController,
     updateOrderController,
-    getUserController
+    getUserController,
+    updateOrderStatusController,
+    submitEmailController,
 }
     from "../controllers/authController.js";
 import { isAdmin, requireSignin } from "../middlewares/authMiddleware.js";
+
 
 //router object
 
@@ -48,6 +51,8 @@ router.get("/admin-auth", requireSignin, isAdmin, (req, res) => {
 
 router.get("/get-user", requireSignin, isAdmin, getUserController)
 
+
+
 //update profile for user
 router.put("/profile", requireSignin, updateProfileController)
 
@@ -61,5 +66,12 @@ router.get("/all-orders", requireSignin, isAdmin, getAllOrderController)
 //order update
 
 router.put("/order-status/:orderId", requireSignin, isAdmin, updateOrderController)
+
+//order update for user
+router.put("/order-status-user/:orderId", requireSignin,  updateOrderStatusController )
+
+//for mail
+
+router.post("/submit-email" , submitEmailController)
 
 export default router;

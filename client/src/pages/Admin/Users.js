@@ -60,6 +60,7 @@ const Users = () => {
                                         <th>User Email</th>
                                         <th>Phone</th>
                                         <th>Address</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>

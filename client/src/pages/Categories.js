@@ -9,8 +9,8 @@ const Categories = () => {
 
     return (
         <Layout>
-            <div className='categories-container'>
-                <h1 className='categories-title'>All Categories</h1>
+            <div className='categories-container image-cover-category'>
+                <h1 style={{color:'white'}} className='categories-title'>All Categories</h1>
                 <div className='categories-list'>
                     {categories.map((c, index) => (
                         <div key={index} className='category-item'>

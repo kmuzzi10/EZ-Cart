@@ -2,7 +2,7 @@ import userModel from "../models/userModel.js"
 import orderModel from "../models/orderModel.js"
 import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import JWT from "jsonwebtoken";
-
+import nodemailer from "nodemailer";
 
 //register route
 export const registerController = async (req, res) => {
@@ -182,6 +182,7 @@ export const getUserController = async (req, res) => {
   }
 }
 
+
 //update profile controller
 
 export const updateProfileController = async (req, res) => {
@@ -270,6 +271,77 @@ export const updateOrderController = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Something went wrong in getting orders",
+      error: err.message // Instead of full error object, sending only the error message
+    });
+  }
+}
+
+
+
+
+export const updateOrderStatusController = async (req, res) => {
+  try {
+    const { orderId } = req.params
+    const { status } = req.body
+    const orders = await orderModel.findByIdAndUpdate(orderId, { status }, { new: true })
+    res.status(200)
+    res.json(orders)
+  } catch (err) {
+    console.error("Error in getting orders:", err);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong in getting orders",
+      error: err.message // Instead of full error object, sending only the error message
+    });
+  }
+}
+
+
+//email submit controller
+export const submitEmailController = async (req, res) => {
+  try {
+    const { name, email, comments } = req.body;
+    let testAccount = await nodemailer.createTestAccount()
+
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      auth: {
+        user: process.env.NODEMAILER_EMAIL,
+        pass: process.env.NODEMAILER_PASS
+      }
+    });
+
+    const mailOptions = {
+      from: process.env.NODEMAILER_EMAIL,
+      to: process.env.NODEMAILER_RECIVE_MAIL, // Your email to receive submissions
+      subject: 'New submission from your website',
+      html: `
+          <p>Name: ${name}</p>
+          <p>Email: ${email}</p>
+          <p>Comments: ${comments}</p>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    // Send confirmation email to the user
+    const userMailOptions = {
+      from: process.env.NODEMAILER_EMAIL,
+      to: email,
+      subject: 'Thank you for submitting!',
+      html: '<p>Thanks for submitting the form of Muzammils Market. We will contact you soon :) .</p>'
+    };
+
+    await transporter.sendMail(userMailOptions);
+
+    res.status(200).send('Submission successful');
+
+  } catch (err) {
+    console.error("Error in getting orders:", err);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong in sending emails",
       error: err.message // Instead of full error object, sending only the error message
     });
   }

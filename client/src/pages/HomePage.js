@@ -23,6 +23,7 @@ import slide2 from "../images/slidetwo.jpg"
 import slide3 from "../images/slidethree.jpg"
 import slide4 from "../images/slidefour.jpg"
 import slide5 from "../images/slidefive.jpg"
+import startBack from "../images/home222.jpg"
 
 
 
@@ -155,9 +156,16 @@ const HomePage = () => {
     setOpen(false);
   };
 
-  
+
   return (
     <Layout title='All Products - Best Offers!'>
+
+
+      <div className='fluid-container '>
+        <div className='row start-home'>
+              <img src={startBack} />
+        </div>
+      </div>
 
       <div className='container-fluid mt-3 home-top'>
         <div className='row'>
@@ -257,7 +265,7 @@ const HomePage = () => {
       <div className='fluid-container'>
         <div className='row'>
           <div className='col-lg-12 col-md-12 col-sm-12 gift-box'>
-            <h1 style={{ color: 'white', fontSize: '150px', textAlign: 'center' }}>More Products?<br />Scroll Down <br />⤵</h1>
+            <h1 className='heading-products'>More Products?<br />Scroll Down <br />⤵</h1>
           </div>
         </div>
       </div>

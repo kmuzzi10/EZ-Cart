@@ -598,6 +598,14 @@ body {
     }
   }
 
+
+  .start-home{
+    padding-top: 30px;
+   }
+  .start-home img{
+    height: 700px;
+    width: 100%;
+   }
   
   .home-top {
     text-align: center;
@@ -631,7 +639,9 @@ body {
     background-size: cover;
   }
   
- 
+  .heading-products{
+    color: 'white'; font-size: '150rem'; text-align: 'center'
+  }
 
   
   /* Media Query for Responsive Design */
@@ -650,6 +660,12 @@ body {
   .gift-box {
     height: auto;
     padding-top: 100px;
+  }
+
+  .heading-products{
+    font-size: 100px;
+    color: white;
+    text-align: center;
   }
 }
 
@@ -773,4 +789,15 @@ font-family: "Protest Strike", sans-serif;
   .social-h1 {
     font-size: 3rem; /* Reduce font size for mobile */
   }
+}
+
+.image-cover-category{
+  background-image: url(./images/category-back.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-bottom: 200px;
+  padding-top: 150px;
+}
+.image-cover-category h1{
+  font-family: "Protest Strike", sans-serif;
 }
