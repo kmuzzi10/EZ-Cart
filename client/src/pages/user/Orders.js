@@ -42,16 +42,16 @@ const Orders = () => {
         <Layout title={'orders'}>
             <div className='container-fluid m-3 p-3'>
                 <div className='row'>
-                    <div className='col-lg-3 col-md-4 col-sm-5'>
+                    <div className='col-lg-3 col-md-4 col-sm-12 mb-3'> {/* Adjusted column sizes for responsiveness */}
                         <UserMenu />
                     </div>
-                    <div className='col-lg-9 col-md-8 col-sm-7'>
+                    <div className='col-lg-9 col-md-8 col-sm-12'>
                         <h1 className='text-center'>All orders</h1>
                         {orders.map((o, i) => {
                             const paymentStatus = o.payment.method === "Cash On Delivery" ? "Cash on Delivery" : o.payment.success ? "Success" : "Failed";
 
                             return (
-                                <div key={o._id} className='border shadow' style={{ marginBottom: '20px' }}>
+                                <div key={o._id} className='border shadow mb-3'>
                                     <table className='table'>
                                         <thead>
                                             <tr>

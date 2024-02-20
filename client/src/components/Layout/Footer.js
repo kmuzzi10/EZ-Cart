@@ -21,10 +21,10 @@ const Footer = () => {
     <div>
       <footer className="bg-dark text-center text-white pt-5 mt-5">
 
-        <div className="container d-flex justify-content-around">
-          <NavLink className='nav-link' to={`/about`} >About</NavLink>
-          <NavLink className='nav-link' to={`/contact`} >Contact</NavLink>
-          <NavLink className='nav-link' to={`/policy`} >Privacy Policy</NavLink>
+        <div className="container d-flex justify-content-center mb-4">
+          <NavLink className='nav-link mx-3' to={`/about`}>About</NavLink>
+          <NavLink className='nav-link mx-3' to={`/contact`}>Contact</NavLink>
+          <NavLink className='nav-link mx-3' to={`/policy`}>Privacy Policy</NavLink>
         </div>
 
 
