@@ -8,7 +8,6 @@ import useCategory from '../../hooks/useCategory';
 import { useCart } from '../../context/cart';
 import { Badge } from 'antd';
 
-
 const Header = () => {
   const [auth, setAuth] = useAuth();
   const categories = useCategory();
@@ -88,6 +87,7 @@ const Header = () => {
         </div>
       </div>
     </nav>
+    
   );
 };
 

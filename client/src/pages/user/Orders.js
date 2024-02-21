@@ -4,6 +4,8 @@ import UserMenu from '../../components/Layout/UserPages/UserMenu';
 import axios from "axios";
 import { useAuth } from '../../context/auth';
 import moment from "moment";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
@@ -17,7 +19,7 @@ const Orders = () => {
             setOrders(data);
         } catch (err) {
             console.log(err);
-            alert(err);
+            toast.error(err);
         }
     };
 
@@ -25,12 +27,15 @@ const Orders = () => {
         try {
             let answer = window.prompt('Are you sure want to Cancel this Order if cancel then write yes');
             if (!answer) return;
-            await axios.put(`${process.env.REACT_APP_API}/api/v1/auth/order-status-user/${orderId}`, { status: "Cancelled" });
-            // Update the UI to reflect the cancelled status
-            setOrders(prevOrders => prevOrders.map(order => order._id === orderId ? { ...order, status: "Cancelled" } : order));
+            if (answer == 'yes') {
+                await axios.put(`${process.env.REACT_APP_API}/api/v1/auth/order-status-user/${orderId}`, { status: "Cancelled" });
+                // Update the UI to reflect the cancelled status
+                setOrders(prevOrders => prevOrders.map(order => order._id === orderId ? { ...order, status: "Cancelled" } : order));
+            }
+
         } catch (err) {
             console.log(err);
-            alert("Failed to cancel the order.");
+            toast.error("Failed to cancel the order.");
         }
     };
 
@@ -93,6 +98,7 @@ const Orders = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </Layout>
     );
 };

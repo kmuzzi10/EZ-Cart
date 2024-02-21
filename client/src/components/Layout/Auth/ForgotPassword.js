@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Layout from '../Layout';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ForgotPassword = () => {
@@ -15,14 +17,14 @@ const ForgotPassword = () => {
         try {
             const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/forgot-password`, { email, newPassword, answer });
             if (res.data.success) {
-                alert(res.data && res.data.message);
+                toast.success(res.data && res.data.message);
                 navigate('/login');
             } else {
-                alert(res.data.message);
+                toast.warning(res.data.message);
             }
         } catch (err) {
             console.log(err);
-            alert("Something Went Wrong");
+            toast.error("Something Went Wrong");
         }
     };
 
@@ -51,6 +53,8 @@ const ForgotPassword = () => {
                     </form>
                 </div>
             </div>
+
+            <ToastContainer />
         </Layout>
     );
 };

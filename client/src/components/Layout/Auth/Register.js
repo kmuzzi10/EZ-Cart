@@ -3,7 +3,8 @@ import Layout from '../Layout';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import GIF from "../../../images/Free Finance Animated GIF Icon Pack 1 - Google Slides - PPT & Google Slides Download.gif"
-import Alert from '@mui/material/Alert';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -30,17 +31,17 @@ const Register = () => {
 
         // Validation checks
         if (!emailRegex.test(email)) {
-            alert("Please enter a valid email address.");
+            toast.warning("Please enter a valid email address.");
             return;
         }
 
         if (!passwordRegex.test(password)) {
-            alert("Password must be at least 8 characters long and contain at least one number.");
+            toast.warning("Password must be at least 8 characters long and contain at least one number.");
             return;
         }
 
         if (!phoneRegex.test(phone)) {
-            alert("Phone number must be at least 12 digits long.");
+            toast.warning("Phone number must be at least 12 digits long.");
             return;
         }
 
@@ -54,14 +55,14 @@ const Register = () => {
                 answer
             });
             if (res.data.success) {
-                alert(res.data && res.data.message);
+                toast.success(res.data && res.data.message);
                 navigate('/login');
             } else {
-                alert(res.data.message);
+                toast.warning(res.data.message);
             }
         } catch (err) {
             console.log(err);
-            alert("Something Went Wrong");
+            toast.error("Something Went Wrong");
         }
     };
 
@@ -116,7 +117,7 @@ const Register = () => {
                     </div>
                 </div>
             </div>
-
+            <ToastContainer />
         </Layout>
     );
 };

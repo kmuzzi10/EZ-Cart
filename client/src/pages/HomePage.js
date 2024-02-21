@@ -170,7 +170,7 @@ const HomePage = () => {
       <div className='container-fluid mt-3 home-top'>
         <div className='row'>
           <div className='col-lg-6 col-md-6 col-sm-12'>
-            <h1>Welcome to Muzammil's Market</h1>
+            <h1 style={{fontFamily:'monospace'}}><b>Welcome to Muzammil's Market</b></h1>
             <h6>Welcome to Muzammil's Market, your one-stop destination for all your shopping needs! Explore our diverse range of products carefully curated to cater to your lifestyle, from the latest gadgets to trendy fashion pieces and everything in between. Whether you're searching for high-quality electronics, stylish apparel, home essentials, or unique gifts, we've got you covered.
 
               At Muzammil's Market, we pride ourselves on providing a seamless and enjoyable shopping experience. With user-friendly navigation and secure payment options, you can shop with confidence, knowing that your satisfaction is our top priority. Plus, our responsive customer support team is always here to assist you every step of the way.

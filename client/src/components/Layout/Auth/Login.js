@@ -3,13 +3,13 @@ import Layout from '../Layout';
 import axios from "axios";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { useAuth } from '../../../context/auth';
-import GIF from "../../../../src/images/Free E-commerce Animated GIF Icon 1 - Google Slides - PPT & Google Slides Download.gif"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import GIF from "../../../../src/images/Free E-commerce Animated GIF Icon 1 - Google Slides - PPT & Google Slides Download.gif";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    // eslint-disable-next-line
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -18,8 +18,8 @@ const Login = () => {
         event.preventDefault();
         try {
             const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`, { email, password });
-            if (res.data.success) {
-                alert(res.data && res.data.message);
+            if (res.data && res.data.success) {
+                toast.success(res.data.message);
                 setAuth({
                     user: res.data.user,
                     token: res.data.token
@@ -27,23 +27,22 @@ const Login = () => {
                 localStorage.setItem("auth", JSON.stringify(res.data));
                 navigate(location.state || '/');
             } else {
-                alert(res.data.message);
+                toast.error(res.data.message);
             }
         } catch (err) {
             console.log(err);
-            alert("Something Went Wrong");
+            toast.error("Something Went Wrong");
         }
-    };
+    }
 
     return (
         <Layout title='Login E-commerce'>
             <div className='fluid-container'>
                 <div className='row'>
                     <div className='col-lg-6 col-md-6 col-sm-12'>
-                      <img src={GIF}></img>
+                        <img src={GIF} alt="GIF"></img>
                     </div>
                     <div className='col-lg-6 col-md-6 col-sm-12'>
-
                         <div className='login-box'>
                             <div className='login-container'>
                                 <h1>Login</h1>
@@ -72,9 +71,9 @@ const Login = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
+            <ToastContainer />
         </Layout>
     );
 };

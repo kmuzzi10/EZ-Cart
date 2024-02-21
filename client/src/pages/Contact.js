@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+
+
 
 const Contact = () => {
+
+    const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
         name: '',
@@ -17,6 +21,13 @@ const Contact = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Check if user is authenticated
+        const token = localStorage.getItem('auth');
+        if (!token) {
+            alert('Please login first to fill this form');
+            navigate("/login")
+            return;
+        }
         try {
             await axios.post('http://localhost:8080/api/v1/auth/submit-email', formData);
             alert('Form submitted successfully! we will contact you soon');
@@ -83,6 +94,8 @@ const Contact = () => {
                     </div>
                 </div>
             </>
+
+
         </Layout>
     );
 };

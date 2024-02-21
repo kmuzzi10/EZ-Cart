@@ -3,6 +3,8 @@ import Layout from '../../components/Layout/Layout';
 import UserMenu from '../../components/Layout/UserPages/UserMenu';
 import { useAuth } from '../../context/auth';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
     const [auth, setAuth] = useAuth();
@@ -33,18 +35,18 @@ const Profile = () => {
                 address,
             });
             if (data?.error) {
-                alert(data?.error);
+                toast.error(data?.error);
             } else {
                 setAuth({ ...auth, user: data?.updatedUser });
                 let ls = localStorage.getItem('auth');
                 ls = JSON.parse(ls);
                 ls.user = data.updatedUser;
                 localStorage.setItem('auth', JSON.stringify(ls));
-                alert('Profile updated successfully');
+                toast.success('Profile updated successfully');
             }
         } catch (err) {
             console.log(err);
-            alert('Something Went Wrong');
+            toast.error('Something Went Wrong');
         }
     };
 
@@ -134,6 +136,8 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
+
+                <ToastContainer />
             </Layout>
         </>
     );
